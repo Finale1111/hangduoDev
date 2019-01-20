@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.caozuo {
+    color: #169bd5;
+    display: inline-block;
+    margin-left: 10px;
+}
+.fenye {
+    float: right;
+}
+footer {
+    background-color: #d7d7d7;padding: 20px 20px 20px 10px;
+}
+footer>div {
+    background-color:#fff;padding: 20px 20px 50px 20px;
+}
+.daohang {
+    font-family: 'PingFangSC-Regular', 'PingFang SC';
+    font-weight: 400;
+    font-style: normal;
+    color: #868686;
+    line-height: 20px;
+    margin: 15px 0px 15px 10px;
+}
+.title {
+    font-family: 'PingFangSC-Regular', 'PingFang SC';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 20px;
+    margin: 0px 0px 15px 10px;
+}
+.ziti {
+    font-family: 'PingFangSC-Regular', 'PingFang SC';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 20px;
+}
+.x-input {
+    width: 245px;
+    height: 25px;
+    display: inline-block;
+    margin-right: 50px;
+    border: 1px solid black;
+}
+.content {
+    padding-left: 50px;
+    margin: 0px 0px 15px 0px;
+}
+.overall {
+    border: 1px solid #BCBCBC;height: 100%; margin: 10px 10px 10px 10px
+}
+.tubiao {
+    border: 1px dashed black;
+    width: 200px;
+    height: 150px;
+    display: inline-block;
+    vertical-align: top;
+}
+.biaodan {
+    margin-top: 20px;
+    margin-left: 50px;
+    border-collapse:separate;
+    border-spacing:0px 10px;
+}
+.biaodan td:first-child{
+    text-align: right;
+}
+.biaodan td:last-child {
+    padding-left: 20px;
+}
+.biaodan tr {
+    padding-bottom: 20px;
+}
+.x-btn {
+    width: 140px;
+    height: 40px;
+}
+.x-btn-sm {
+    width: 100px;
+    height: 25px;
+}
+.layui-table th,.layui-table td {
+    text-align: center;!important;
+}
+.x-select {
+    width: 245px;
+    border: 1px solid black;
+}
