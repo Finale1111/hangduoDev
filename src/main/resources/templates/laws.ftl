@@ -15,15 +15,17 @@
             <div class="daohang">法规管理 / 法规列表</div>
             <div class="title">法规列表</div>
             <div class="content">
-                <label class="ziti">
-                    *法规编号:
-                    <input class="layui-input x-input" type="text">
-                </label>
-                <label class="ziti">
-                    *法规名称:
-                    <input class="layui-input x-input" type="text">
-                </label>
-                <button class="layui-btn layui-btn-primary x-btn">搜索</button>
+                <form action="/lawSearch" method="post">
+                    <label class="ziti">
+                        *法规编号:
+                        <input name="lawNum" class="layui-input x-input" type="text">
+                    </label>
+                    <label class="ziti">
+                        *法规名称:
+                        <input name="lawTitle" class="layui-input x-input" type="text">
+                    </label>
+                    <input type="submit" class="layui-btn layui-btn-primary x-btn" value="搜索"/>
+                </form>
             </div>
         </header>
         <footer>
@@ -34,125 +36,37 @@
                 <table class="layui-table" style="word-break:break-all; word-wrap: break-word">
                     <thead>
                     <tr>
-                        <th>标题</th>
-                        <th>标题</th>
-                        <th>标题</th>
-                        <th>标题</th>
-                        <th>标题</th>
+                        <th>部号</th>
+                        <th>法规部号别名</th>
+                        <th>版本号</th>
+                        <th>法规名称</th>
+                        <th>前台显示</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>
-                            <a href="" class="caozuo">编辑</a>
-                            <a href="" class="caozuo">删除</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>
-                            <a href="" class="caozuo">编辑</a>
-                            <a href="" class="caozuo">删除</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>
-                            <a href="" class="caozuo">编辑</a>
-                            <a href="" class="caozuo">删除</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>
-                            <a href="" class="caozuo">编辑</a>
-                            <a href="" class="caozuo">删除</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>
-                            <a href="" class="caozuo">编辑</a>
-                            <a href="" class="caozuo">删除</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>
-                            <a href="" class="caozuo">编辑</a>
-                            <a href="" class="caozuo">删除</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>
-                            <a href="" class="caozuo">编辑</a>
-                            <a href="" class="caozuo">删除</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>
-                            <a href="" class="caozuo">编辑</a>
-                            <a href="" class="caozuo">删除</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>
-                            <a href="" class="caozuo">编辑</a>
-                            <a href="" class="caozuo">删除</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>内容</td>
-                        <td>
-                            <a href="" class="caozuo">编辑</a>
-                            <a href="" class="caozuo">删除</a>
-                        </td>
-                    </tr>
+
+                    <#list laws.list as law>
+                        <tr>
+                            <td>${law.lawNum}</td>
+                            <td>${law.lawAlias}</td>
+                            <td>${law.lawVersion}</td>
+                            <td>${law.lawTitle}</td>
+                            <td>
+                                <#if law.showStatus==1>
+                                    显示
+                                <#elseif law.showStatus==0>
+                                    不显示
+                                </#if>
+
+                            </td>
+                            <td>
+                                <a href="/updLaw?id=${law.lawAlias}" class="caozuo">编辑</a>
+                                <a href="" class="caozuo">删除</a>
+                            </td>
+                        </tr>
+                    </#list>
+
                     </tbody>
                 </table>
                 <div id="page" class="fenye"></div>
@@ -160,18 +74,26 @@
         </footer>
     </div>
     <script src="static/layui/layui.js"></script>
+
     <script>
         layui.use(['laypage','layer'],function () {
             var laypage = layui.laypage;
+            var total=${laws.total};
+
             laypage.render({
                 elem: 'page'
-                ,count: 100
-                ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
-                ,jump: function(obj){
+                ,count: total
+                ,curr:${laws.pageNum}
+                ,limit:${laws.pageSize}
+                ,layout: ['count', 'prev', 'page', 'next', 'skip']
+                ,jump: function(obj,first){
+                    if (!first){
+                        //alert(JSON.stringify(obj));
+                        window.location="laws?pageNumber="+obj.curr;
+                    }
                 }
             });
         })
-
     </script>
 </body>
 </html>

@@ -8,6 +8,14 @@
         select * from users where uid=#{uid}
     </select>
 
+    <select id="getUsers" resultMap="user">
+        select * from users where `status`=1 order by uid
+    </select>
+
+    <select id="getUsersByPhone" parameterType="java.lang.String" resultMap="user">
+        select * from users where user_phone like concat('%',#{phone},'%')
+    </select>
+
 
     <resultMap id="user" type="com.hangduo.dev1.entity.User">
         <id column="uid" property="uid"></id>

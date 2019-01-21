@@ -8,8 +8,9 @@ public interface UserDao {
 
     User getUserByUid(int uid);
 
-    List<User> getUsers(int index);
+    List<User> getUsers();
 
-    //这是刚刚写的
+    List<User> getUsersByPhone(String phone);
+
 
 }

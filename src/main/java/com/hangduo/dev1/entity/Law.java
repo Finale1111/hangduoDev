@@ -76,4 +76,20 @@ public class Law {
     public void setLawDownloadLink(String lawDownloadLink) {
         this.lawDownloadLink = lawDownloadLink;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Law){
+            Law law=(Law)object;
+            if (this.lawAlias.equals(law.lawAlias)){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+
+
+    }
 }

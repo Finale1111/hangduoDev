@@ -1,32 +1,35 @@
 package com.hangduo.dev1.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.hangduo.dev1.entity.Law;
 import com.hangduo.dev1.entity.User;
+import com.hangduo.dev1.service.LawService;
 import com.hangduo.dev1.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Controller
 public class MainController {
 
     @Resource
     UserService userService;
+    @Resource
+    LawService lawService;
 
-    @RequestMapping(value = "/init")
-    public String initTest(Model model){
-        User user = userService.getUserByUid(100001);
-        model.addAttribute("info",user.getPassword()+user.getRegDate().toString());
-        return "show";
-    }
+
 
     @RequestMapping(value = "/laws")
-    public String toLaws(){
+    public String toLaws(Model model,@RequestParam(defaultValue = "1",required = false) int pageNumber,
+                         @RequestParam(defaultValue = "10",required = false) int pageSize){
+        PageInfo<Law> laws=lawService.getAllLaws(pageNumber,pageSize);
+        model.addAttribute("laws",laws);
         return "laws";
     }
-
-
 
     @RequestMapping(value = "/messages")
     public String toMessage(){
@@ -59,7 +62,13 @@ public class MainController {
     }
 
     @RequestMapping(value = "/users")
-    public String toUsers(){
+    public String toUsers(Model model,
+                          @RequestParam(defaultValue = "1",required = false) int pageNumber,
+                          @RequestParam(defaultValue = "10",required = false) int pageSize){
+
+        PageInfo<User> users=userService.getUsers(pageNumber,pageSize);
+        model.addAttribute("users",users);
+
         return "users";
     }
 
@@ -87,6 +96,16 @@ public class MainController {
     public String toAddCatalogs(){
         return "addCatalogs";
     }
+
+    @RequestMapping(value = "/updLaw")
+    public String toUpdLaw(String id,Model model){
+
+        Law lawInfo=lawService.getLawByAlias(id);
+        model.addAttribute("lawInfo",lawInfo);
+
+        return "updLaws";
+    }
+
 
 
 

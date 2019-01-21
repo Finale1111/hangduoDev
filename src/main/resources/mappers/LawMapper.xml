@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hangduo.dev1.dao.LawDao">
+
+    <select id="getLaws" parameterType="int" resultMap="law">
+        select * from laws order by law_num
+    </select>
+
+    <select id="getLawByAlias" parameterType="java.lang.String" resultMap="law">
+        select * from laws where law_alias=#{alias}
+    </select>
+
+    <select id="getLawByTitle" parameterType="java.lang.String" resultMap="law">
+        select * from laws where law_title like concat('%',#{title},'%')
+    </select>
+
+    <select id="getLawByLawNum" parameterType="int" resultMap="law">
+        select * from laws where law_num=#{lawNum}
+    </select>
+
+    <resultMap id="law" type="com.hangduo.dev1.entity.Law">
+        <id column="law_alias" property="lawAlias"></id>
+        <result column="law_num" property="lawNum"></result>
+        <result column="law_title" property="lawTitle"></result>
+        <result column="law_version" property="lawVersion"></result>
+        <result column="law_logo_url" property="lawLogoUrl"></result>
+        <result column="law_pdf_title" property="lawPDFTitle"></result>
+        <result column="law_dl_link" property="lawDownloadLink"></result>
+        <result column="law_description" property="lawDescription"></result>
+        <result column="show_status" property="showStatus"></result>
+
+    </resultMap>
+
+</mapper>
