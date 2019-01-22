@@ -12,12 +12,8 @@
         select * from laws where law_alias=#{alias}
     </select>
 
-    <select id="getLawByTitle" parameterType="java.lang.String" resultMap="law">
-        select * from laws where law_title like concat('%',#{title},'%')
-    </select>
-
-    <select id="getLawByLawNum" parameterType="int" resultMap="law">
-        select * from laws where law_num=#{lawNum}
+    <select id="getLawSearch" resultMap="law">
+        select * from laws where law_title like concat('%',#{title},'%') or law_num=#{lawNum}
     </select>
 
     <resultMap id="law" type="com.hangduo.dev1.entity.Law">
