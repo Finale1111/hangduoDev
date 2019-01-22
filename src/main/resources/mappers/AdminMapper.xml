@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hangduo.dev1.dao.AdminDao">
+
+    <select id="getAdmin" parameterType="int" resultMap="admin">
+        SELECT * FROM admin ORDER BY aid
+    </select>
+
+    <insert id="addAdmin">
+
+INSERT INTO hangduoTest.admin
+	(adm_phone,
+	adm_name,
+	adm_level,
+	PASSWORD,
+	reg_date,
+	STATUS
+	)
+	VALUES
+	(#{adminPhone},
+	#{adminName},
+	#{adminLevel},
+	#{password},
+	#{regDate},
+	#{status}
+	);
+    </insert>
+
+
+   <delete id="delAdmin">
+	DELETE FROM hangduoTest.admin
+	WHERE
+	aid =#{aid};
+    </delete>
+
+
+
+    <resultMap id="admin" type="com.hangduo.dev1.entity.Admin">
+        <id column="aid" property="aid"></id>
+        <result column="adm_phone" property="adminPhone"></result>
+        <result column="adm_name" property="adminName"></result>
+        <result column="adm_level" property="adminLevel"></result>
+        <result column="password" property="password"></result>
+        <result column="reg_date" property="regDate"></result>
+        <result column="status" property="status"></result>
+    </resultMap>
+
+</mapper>

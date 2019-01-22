@@ -3,12 +3,15 @@ package com.hangduo.dev1.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hangduo.dev1.dao.LawDao;
+import com.hangduo.dev1.entity.Catalog;
+import com.hangduo.dev1.entity.Item;
 import com.hangduo.dev1.entity.Law;
 import com.hangduo.dev1.service.LawService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -21,10 +24,45 @@ public class LawServiceImpl implements LawService {
     @Override
     public PageInfo<Law> getAllLaws(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        List<Law> laws=lawDao.getLaws(pageNum,pageSize);
+        List<Law> laws=lawDao.getLaws();
+        System.out.println("laws 尺寸"+laws.size());
         PageInfo<Law> result=new PageInfo<>(laws);
+        System.out.println("laws 分页"+result.getPageSize());
+        return result;
+    }
+
+    @Override
+    public PageInfo<Catalog> getCatalogsFromLaw(String lawAlias, int pageNum, int pageSize) {
+
+        PageHelper.startPage(pageNum,pageSize);
+
+        List<Catalog> headCatalogs=lawDao.getHeadCatalogs(lawAlias);
+        List<Catalog> catalogs=new ArrayList<>();
+        for (int i=0;i<headCatalogs.size();i++){
+            catalogs.add(headCatalogs.get(i));
+            List<Catalog> subCatalogs=lawDao.getNextLevelCatalogs(headCatalogs.get(i).getCid());
+            for (int j=0;j<subCatalogs.size();j++){
+                catalogs.add(subCatalogs.get(j));
+                List<Catalog> doubleSubcatalogs=lawDao.getNextLevelCatalogs(subCatalogs.get(j).getCid());
+                for (int k=0;k<doubleSubcatalogs.size();k++){
+                    catalogs.add(doubleSubcatalogs.get(k));
+                }
+                doubleSubcatalogs.clear();
+            }
+            subCatalogs.clear();
+        }
+        System.out.println("======service："+pageSize);
+        System.out.println("======list size："+catalogs.size());
+
+        PageInfo<Catalog> result=new PageInfo<>(catalogs);
+        System.out.println("======service最后："+result.getPageSize());
 
         return result;
+    }
+
+    @Override
+    public List<Catalog> getSubCalogs(int cid) {
+        return lawDao.getNextLevelCatalogs(cid);
     }
 
     @Override
@@ -36,24 +74,26 @@ public class LawServiceImpl implements LawService {
     @Override
     public PageInfo<Law> searchLaws(int pageNum, int pageSize,int lawNum, String title) {
         PageHelper.startPage(pageNum,pageSize);
-        List<Law> laws=new ArrayList<Law>();
-        if (lawNum!=0){
-            laws.addAll(lawDao.getLawByLawNum(lawNum,pageNum,pageSize));
-        }
-        if (!title.equals("x")){
-            laws.addAll(lawDao.getLawByTitle(title,pageNum,pageSize));
-        }
 
-        for (int i=0;i<laws.size()-1;i++){
-            for (int j=laws.size()-1;j>i;j--){
-                if (laws.get(j).equals(laws.get(i))){
-                    laws.remove(j);
-                }
-            }
-        }
+        List<Law> laws=lawDao.getLawSearch(title,lawNum);
+
         PageInfo<Law> result=new PageInfo<>(laws);
 
         return result;
 
+    }
+
+    @Override
+    public List<Law> getLawsList() {
+        List<Law> laws=lawDao.getLaws();
+        return laws;
+    }
+
+    @Override
+    public PageInfo<Item> getItemsFromLaw(String lawAlias, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Item> items=lawDao.getItems(lawAlias);
+        PageInfo<Item> result=new PageInfo<>(items);
+        return result;
     }
 }

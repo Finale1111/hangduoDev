@@ -1,5 +1,7 @@
 package com.hangduo.dev1.dao;
 
+import com.hangduo.dev1.entity.Catalog;
+import com.hangduo.dev1.entity.Item;
 import com.hangduo.dev1.entity.Law;
 import org.apache.ibatis.annotations.Param;
 
@@ -7,12 +9,16 @@ import java.util.List;
 
 public interface LawDao {
 
-    List<Law> getLaws(int pageNum,int pageSize);
+    List<Law> getLaws();
 
     Law getLawByAlias(String alias);
 
-    List<Law> getLawByTitle(@Param("title") String title,int pageNum,int pageSize);
+    List<Law> getLawSearch(@Param("title") String title,@Param("lawNum")int lawNum);
 
-    List<Law> getLawByLawNum(@Param("lawNum") int lawNum, int pageNum, int pageSize);
+    List<Catalog> getHeadCatalogs(String lawAlias);
+
+    List<Catalog> getNextLevelCatalogs(int cid);
+
+    List<Item> getItems(String lawAlias);
 
 }

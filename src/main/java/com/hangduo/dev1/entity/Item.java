@@ -3,7 +3,7 @@ package com.hangduo.dev1.entity;
 public class Item {
 
     private int iid,cid;
-    private String itemNum,lawAlias,itemAlias,itemTitle,itemContent;
+    private String itemNum,lawAlias,itemAlias,itemTitle,itemContent,version;
 
     public int getIid() {
         return iid;
@@ -59,5 +59,13 @@ public class Item {
 
     public void setItemContent(String itemContent) {
         this.itemContent = itemContent;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

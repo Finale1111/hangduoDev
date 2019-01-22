@@ -61,7 +61,7 @@
               <a href="/addLaws" target="myFrame">新增法规</a>
             </dd>
             <dd data-name="console">
-              <a href="/catalogs" target="myFrame">法规目录管理</a>
+              <a href="/catalogSearch" target="myFrame">法规目录管理</a>
             </dd>
             <dd data-name="console">
               <a href="/addCatalogs" target="myFrame">新增目录</a>

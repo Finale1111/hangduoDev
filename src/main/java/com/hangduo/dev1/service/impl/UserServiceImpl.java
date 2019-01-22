@@ -26,7 +26,9 @@ public class UserServiceImpl implements UserService {
     public PageInfo<User> getUsers(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         List<User> usersList=userDao.getUsers();
+
         PageInfo<User> users=new PageInfo<>(usersList);
+
         return users;
     }
 
@@ -34,7 +36,9 @@ public class UserServiceImpl implements UserService {
     public PageInfo<User> getUsersByPhone(String userPhone, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         List<User> usersList=userDao.getUsersByPhone(userPhone);
+
         PageInfo<User> users=new PageInfo<>(usersList);
+
         return users;
     }
 }

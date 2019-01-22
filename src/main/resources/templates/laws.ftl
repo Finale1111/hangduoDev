@@ -7,6 +7,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="static/layui/css/layui.css">
     <link rel="stylesheet" href="static/css/Xq.css">
+    <script src="static/js/jquery-1.9.1.min.js"></script>
 </head>
 <body>
 
@@ -31,7 +32,7 @@
         <footer>
             <div>
                 <div class="layui-input-block">
-                    <button class="layui-btn layui-btn-normal" style="float: right;">新增法规</button>
+                    <button class="layui-btn layui-btn-normal" style="float: right;" onclick="toAddLaws()">新增法规</button>
                 </div>
                 <table class="layui-table" style="word-break:break-all; word-wrap: break-word">
                     <thead>
@@ -94,6 +95,12 @@
                 }
             });
         })
+
+        function toAddLaws() {
+            alert("要去新的");
+            window.location.href="addLaws";
+        }
+
     </script>
 </body>
 </html>

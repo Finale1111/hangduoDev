@@ -17,13 +17,10 @@
             <label class="ziti">法&nbsp;&nbsp;&nbsp;规:</label>
             <div class="layui-input-inline x-select">
                 <select name="quiz">
-                    <option value="请选择">请选择</option>
-                    <option value="CCAR-21-R4 民用航空产品和零部件合格审定规定">民用航空产品和零部件合格审定规定</option>
-                    <option value="CCAR-23-R3正常类、实用类、特技类和通勤类飞机适航标准">CCAR-23-R3正常类、实用类、特技类和通勤类飞机适航标准</option>
-                    <option value="CCAR-25-R4运输类飞机适航标准">CCAR-25-R4运输类飞机适航标准</option>
-                    <option value="CCAR-26运输类飞机的持续适航和安全改进规定">CCAR-26运输类飞机的持续适航和安全改进规定</option>
-                    <option value="CCAR-27-R1正常类旋翼航空器适航规定">CCAR-27-R1正常类旋翼航空器适航规定</option>
-                    <option value="CCAR-29-R1运输类旋翼航空器适航规定">CCAR-29-R1运输类旋翼航空器适航规定</option>
+                    <option value="请选择" selected="selected">请选择</option>
+                    <#list lawsList as law>
+                        <option value="${law.lawAlias}">${law.lawAlias}&nbsp;${law.lawTitle}</option>
+                    </#list>
                 </select>
             </div>
         </div>
@@ -47,125 +44,29 @@
             <table class="layui-table" style="word-break:break-all; word-wrap: break-word">
                 <thead>
                 <tr>
-                    <th>标题</th>
-                    <th>标题</th>
-                    <th>标题</th>
-                    <th>标题</th>
-                    <th>标题</th>
+                    <th>条款号</th>
+                    <th>条款号别名</th>
+                    <th>条款标题</th>
+                    <th>所属法规名称</th>
+                    <th>版本号</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
+                <#list items.list as item>
+                    <tr>
+                        <td>${item.itemNum}</td>
+                        <td>${item.itemAlias}</td>
+                        <td>${item.itemTitle}</td>
+                        <td>${item.lawAlias}</td>
+                        <td>xx</td>
+                        <td>
+                            <a href="" class="caozuo">编辑</a>
+                            <a href="" class="caozuo">删除</a>
+                        </td>
+                    </tr>
+                </#list>
+
                 </tbody>
             </table>
             <div id="page" class="fenye"></div>
@@ -180,11 +81,19 @@
     });
     layui.use(['laypage','layer'],function () {
         var laypage = layui.laypage;
+        var total=${items.total}
         laypage.render({
             elem: 'page'
-            ,count: 100
-            ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
-            ,jump: function(obj){
+            ,count: total
+            ,curr:${items.pageNum}
+            ,limit:${items.pageSize}
+            ,layout: ['count','prev','page','next','skip']
+            ,jump: function(obj,first){
+                if (!first){
+                    //alert(JSON.stringify(obj));
+                    window.location="items?pageNumber="+obj.curr;
+                    //+"&lawAlias=";
+                }
             }
         });
     })

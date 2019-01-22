@@ -7,6 +7,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="static/layui/css/layui.css">
     <link rel="stylesheet" href="static/css/Xq.css">
+    <script src="static/js/jquery-1.9.1.min.js"></script>
 </head>
 <body>
 <div class="overall">
@@ -18,109 +19,47 @@
         <div>
             <div class="layui-form" style="position: relative;margin: 50px 0px 30px 0px;">
                         <label class="layui-form-label">选择法规：</label>
-                        <div class="layui-input-inline">
-                            <select name="quiz">
-                                <option value="请选择">请选择</option>
-                                <option value="CCAR-21-R4 民用航空产品和零部件合格审定规定">民用航空产品和零部件合格审定规定</option>
-                                <option value="CCAR-23-R3正常类、实用类、特技类和通勤类飞机适航标准">CCAR-23-R3正常类、实用类、特技类和通勤类飞机适航标准</option>
-                                <option value="CCAR-25-R4运输类飞机适航标准">CCAR-25-R4运输类飞机适航标准</option>
-                                <option value="CCAR-26运输类飞机的持续适航和安全改进规定">CCAR-26运输类飞机的持续适航和安全改进规定</option>
-                                <option value="CCAR-27-R1正常类旋翼航空器适航规定">CCAR-27-R1正常类旋翼航空器适航规定</option>
-                                <option value="CCAR-29-R1运输类旋翼航空器适航规定">CCAR-29-R1运输类旋翼航空器适航规定</option>
-                            </select>
-                        </div>
-                <button class="layui-btn-primary x-btn-sm" style="margin-left: 50px;">确定</button>
+                        <form action="/searchCatalog" method="post">
+                            <div class="layui-input-inline">
+                                <select id="lawAlias" name="quiz">
+                                    <option value="请选择" selected="selected">请选择</option>
+                                    <#list lawsList as law>
+                                        <option value="${law.lawAlias}">${law.lawAlias}&nbsp;${law.lawTitle}</option>
+                                    </#list>
+                                </select>
+                            </div>
+                            <input type="submit" value="确定" class="layui-btn-primary x-btn-sm" style="margin-left: 50px;" onclick="getCatalogs()"/>
+                        </form>
                 <button class="layui-btn layui-btn-normal" style="position: absolute;right: 0;bottom: 1px;">新增目录</button>
             </div>
             <table class="layui-table" style="word-break:break-all; word-wrap: break-word">
                 <thead>
                 <tr>
-                    <th>意见反馈内容</th>
-                    <th>咨询时间</th>
+                    <th>目录名称</th>
+                    <th>排序</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
+                <#list catalogs.list as catalog>
+                    <tr>
+                        <#if catalog.cLevel==0>
+                            <td>+${catalog.catalogContent}</td>
+                        <#elseif catalog.cLevel==1>
+                            <td>-${catalog.catalogContent}</td>
+                        <#elseif catalog.cLevel==2>
+                            <td>--${catalog.catalogContent}</td>
+                        </#if>
+
+                        <td>${catalog.cIndex}</td>
+                        <td>
+                            <a href="#" class="caozuo">编辑</a>
+                            <a href="#" class="caozuo">删除</a>
+                        </td>
+                    </tr>
+                </#list>
+
+
                 </tbody>
             </table>
             <div id="page" class="fenye"></div>
@@ -136,14 +75,27 @@
     });
     layui.use(['laypage','layer'],function () {
         var laypage = layui.laypage;
+        //var lawAlias=${lawAlias}
         laypage.render({
             elem: 'page'
-            ,count: 100
-            ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
-            ,jump: function(obj){
+            ,count: ${catalogs.total}
+            ,curr:${catalogs.pageNum}
+            ,limit:${catalogs.pageSize}
+            ,layout: ['count', 'prev', 'page', 'next', 'skip']
+            ,jump: function(obj,first){
+                if (!first){
+                    //alert(JSON.stringify(obj));
+                    window.location="catalogSearch?pageNumber="+obj.curr+"&lawAlias="+${lawAlias};
+                }
             }
         });
     })
+
+    function getCatalogs() {
+        var lawAlias=$("#lawAlias").val();
+        alert(lawAlias);
+        window.location.href="/catalogSearch?lawAlias="+lawAlias;
+    }
 </script>
 </body>
 </html>

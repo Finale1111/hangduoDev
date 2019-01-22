@@ -23,6 +23,7 @@
     </header>
     <footer>
         <div>
+            <form action="/addLawsAction"></form>
             <table class="biaodan" cellspacing="10px">
                 <tr>
                     <td style="width: 300px;">*法规部号:</td>
@@ -43,10 +44,10 @@
                 <tr>
                     <td>*是否显示:</td>
                     <td class="layui-form">
-                            <div class="layui-input-block" style="margin-left: 0px">
-                                <input type="radio" name="" value="0" title="显示" checked>
-                                <input type="radio" name="" value="1" title="不显示">
-                            </div>
+                        <div class="layui-input-block" style="margin-left: 0px">
+                            <input type="radio" name="showStatus" value="0" title="显示" checked>
+                            <input type="radio" name="showStatus" value="1" title="不显示">
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -76,7 +77,9 @@
                 <tr>
                     <td style="vertical-align: top;">*法规版本说明:</td>
                     <td>
+
                         <div id="froala-editor" style="width: 500px;">
+
                         </div>
 
                         <button class="layui-btn layui-btn-primary x-btn" style="margin-top: 20px;">保存</button>

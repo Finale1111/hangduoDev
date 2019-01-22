@@ -1,8 +1,11 @@
 package com.hangduo.dev1.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.hangduo.dev1.entity.Admin;
+import com.hangduo.dev1.entity.Catalog;
 import com.hangduo.dev1.entity.Law;
 import com.hangduo.dev1.entity.User;
+import com.hangduo.dev1.service.AdminService;
 import com.hangduo.dev1.service.LawService;
 import com.hangduo.dev1.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -20,7 +23,8 @@ public class MainController {
     UserService userService;
     @Resource
     LawService lawService;
-
+    @Resource
+    AdminService adminService;
 
 
     @RequestMapping(value = "/laws")
@@ -37,7 +41,11 @@ public class MainController {
     }
 
     @RequestMapping(value = "/admins")
-    public String toAdmins(){
+    public String toAdmins(Model model,
+                           @RequestParam(defaultValue = "1",required = false) int pageNumber,
+                           @RequestParam(defaultValue = "10",required = false) int pageSize){
+        PageInfo<Admin> admins= adminService.getAllAdmins(pageNumber,pageSize);
+        model.addAttribute("admins",admins);
         return "admins";
     }
 
@@ -72,10 +80,6 @@ public class MainController {
         return "users";
     }
 
-    @RequestMapping(value = "/items")
-    public String toItems(){
-        return "items";
-    }
 
     @RequestMapping(value = "/addItems")
     public String toAddItems(){
@@ -87,10 +91,6 @@ public class MainController {
         return "addLaws";
     }
 
-    @RequestMapping(value = "/catalogs")
-    public String toCatalogs(){
-        return "catalogs";
-    }
 
     @RequestMapping(value = "/addCatalogs")
     public String toAddCatalogs(){

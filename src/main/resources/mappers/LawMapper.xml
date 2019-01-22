@@ -16,6 +16,18 @@
         select * from laws where law_title like concat('%',#{title},'%') or law_num=#{lawNum}
     </select>
 
+    <select id="getHeadCatalogs" parameterType="java.lang.String" resultMap="catalog">
+        select * from catalogs where c_level=0 and law_alias=#{lawAlias} order by c_index
+    </select>
+
+    <select id="getNextLevelCatalogs" parameterType="int" resultMap="catalog">
+        select * from catalogs where sup_cid=#{cid} order by c_index
+    </select>
+
+    <select id="getItems" parameterType="java.lang.String" resultMap="item">
+        SELECT * from items i JOIN laws l ON i.law_alias=l.law_alias where i.law_alias=#{lawAlias} order by i_num
+    </select>
+
     <resultMap id="law" type="com.hangduo.dev1.entity.Law">
         <id column="law_alias" property="lawAlias"></id>
         <result column="law_num" property="lawNum"></result>
@@ -27,6 +39,26 @@
         <result column="law_description" property="lawDescription"></result>
         <result column="show_status" property="showStatus"></result>
 
+    </resultMap>
+
+    <resultMap id="catalog" type="com.hangduo.dev1.entity.Catalog">
+        <id column="cid" property="cid"></id>
+        <result column="law_alias" property="lawAlias"></result>
+        <result column="c_content" property="catalogContent"></result>
+        <result column="c_level" property="cLevel"></result>
+        <result column="sup_cid" property="supCid"></result>
+        <result column="c_index" property="cIndex"></result>
+    </resultMap>
+
+    <resultMap id="item" type="com.hangduo.dev1.entity.Item">
+        <id column="iid" property="iid"></id>
+        <result column="cid" property="cid"></result>
+        <result column="i_num" property="itemNum"></result>
+        <result column="law_alias" property="lawAlias"></result>
+        <result column="i_alias" property="itemAlias"></result>
+        <result column="i_title" property="itemTitle"></result>
+        <result column="i_content" property="itemContent"></result>
+        <result column="version" property="law_version"></result>
     </resultMap>
 
 </mapper>
