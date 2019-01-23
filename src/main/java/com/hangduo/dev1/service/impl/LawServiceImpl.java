@@ -139,4 +139,13 @@ public class LawServiceImpl implements LawService {
     public boolean DelLaw(String lawAlias) {
         return lawDao.delLaw(lawAlias)>0?true:false;
     }
+
+    @Override
+    public boolean updLaw(Law law) {
+        if (lawDao.updLaw(law)>0){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

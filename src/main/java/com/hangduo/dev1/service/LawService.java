@@ -32,4 +32,6 @@ public interface LawService {
 
     boolean DelLaw(String lawAlias);
 
+    boolean updLaw(Law law);
+
 }

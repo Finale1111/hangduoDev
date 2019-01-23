@@ -10,10 +10,16 @@ import com.hangduo.dev1.service.QuestionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 @Controller
@@ -114,10 +120,38 @@ public class ItemController {
 
 
 
-    @RequestMapping("/addLawsAction")
-    public String addLaws(Law law){
+    @RequestMapping(value = "/addLawsAction",method = RequestMethod.POST)
+    public String addLaws(Law law,
+                          @RequestParam(value = "picPath",required = false)MultipartFile attach,
+                          HttpSession session,
+                          HttpServletRequest request){
+//        String result=null;
+//        if (!attach.isEmpty()){
+//            String path=request.getSession().getServletContext().getRealPath("static"+File.separator+"logos");
+//            int fileSize=50000;
+//            if (attach.getSize()>fileSize){
+//                System.out.println("尺寸过大");
+//            }else{
+//                String fileName=attach.getOriginalFilename();
+//                File target=new File(path,fileName);
+//                if (!target.exists()){
+//                    target.mkdirs();
+//                }
+//                try {
+//                    attach.transferTo(target);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                String lawLogoUrl=path+File.separator+fileName;
+//                System.out.println("*****"+lawLogoUrl);
+//            }
+//        }
+        String desOld=law.getLawDescription();
+        int length=desOld.length();
+        String desNew=desOld.substring(3,length-4);
+        law.setLawDescription(desNew);
         lawService.addLaw(law);
-        return "redirect:/lawSearch";
+        return "redirect:/laws";
     }
 
     @RequestMapping("/doCatalogAdd")
@@ -168,6 +202,12 @@ public class ItemController {
         PageInfo<Question> questions= questionService.searchQuestions(pageNumber,pageSize,qstContent,qstPhone);
         model.addAttribute("questions",questions);
         return "questions";
+    }
+
+    @RequestMapping("/updLawAction")
+    public String updLawAction(Law law){
+        lawService.updLaw(law);
+        return "redirect:/laws";
     }
 
 }

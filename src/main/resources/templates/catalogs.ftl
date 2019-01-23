@@ -93,7 +93,6 @@
 
     function getCatalogs() {
         var lawAlias=$("#lawAlias").val();
-        alert(lawAlias);
         window.location.href="/catalogSearch?lawAlias="+lawAlias;
     }
 </script>

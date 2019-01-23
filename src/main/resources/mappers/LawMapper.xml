@@ -33,7 +33,7 @@
     </select>
 
     <insert id="addLaw" parameterType="com.hangduo.dev1.entity.Law">
-        insert into laws values (#{lawAlias},#{lawNum},#{lawVersion},#{lawTitle},#{lawLogoUrl},#{lawPDFTitle},#{lawDownloadLink},#{lawDescription},#{showStatus})
+        insert into laws values (#{lawAlias},#{lawNum},#{lawVersion},#{lawTitle},'loading.gif',#{lawPDFTitle},#{lawDownloadLink},#{lawDescription},#{showStatus})
     </insert>
 
     <select id="getCatalogByCid" parameterType="int" resultMap="catalog">
@@ -44,6 +44,7 @@
         insert into catalogs(law_alias,c_content,c_level,sup_cid,c_index)  values (#{lawAlias},#{catalogContent},#{cLevel},#{supCid},#{cIndex})
     </insert>
 
+
     <delete id="delLaw">
         DELETE l,c,i
         FROM laws l
@@ -53,6 +54,10 @@
         ON c.law_alias = i.law_alias
         WHERE l.law_alias=#{lawAlias};
     </delete>
+
+    <update id="updLaw" parameterType="com.hangduo.dev1.entity.Law">
+        update laws set law_num=#{lawNum},law_title=#{lawTitle},law_version=#{lawVersion},law_pdf_title=#{lawPDFTitle},law_dl_link=#{lawDownloadLink},law_description=#{lawDescription},show_status=#{showStatus} where law_alias=#{lawAlias}
+    </update>
 
     <resultMap id="law" type="com.hangduo.dev1.entity.Law">
         <id column="law_alias" property="lawAlias"></id>

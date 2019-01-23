@@ -30,30 +30,30 @@
     <footer>
 
         <div>
-            <form action="doAddLawsController" method="post">
+            <form action="addLawsAction" method="post" enctype="multipart/form-data">
             <table class="biaodan" cellspacing="10px">
                 <tr>
                     <td style="width: 300px;">*法规部号:</td>
-                    <td><input class="layui-input x-input" type="text" name="lawsPart"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawNum"></td>
                 </tr>
                 <tr>
                     <td>法规号别名:</td>
-                    <td><input class="layui-input x-input" type="text" name="lawsId"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawAlias"></td>
                 </tr>
                 <tr>
                     <td>法规版本号:</td>
-                    <td><input class="layui-input x-input" type="text" name="lawsVersion"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawVersion"></td>
                 </tr>
                 <tr>
                     <td>*法规名称:</td>
-                    <td><input class="layui-input x-input" type="text" name="lawsName"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawTitle"></td>
                 </tr>
                 <tr>
                     <td>*是否显示:</td>
                     <td class="layui-form">
                         <div class="layui-input-block" style="margin-left: 0px">
-                            <input type="radio" name="lawsStauts" value="0" title="显示">
-                            <input type="radio" name="lawsStauts" value="1" title="不显示">
+                            <input type="radio" name="showStatus" value="1" title="显示">
+                            <input type="radio" name="showStatus" value="0" title="不显示">
                         </div>
                     </td>
                 </tr>
@@ -61,7 +61,7 @@
                     <td>*首页法规图标:</td>
                     <td style="position: relative;width: 400px;">
                             <img style="width: 200px;height: 170px;border: 1px dashed #000;position: relative;" alt="asdfas" id="pic" src="" >
-                            <input style="display: none;" id="upload" type="file" name="tu"/>
+                            <input style="display: none;" id="upload" type="file" name="picPath"/>
                         <div style="position: absolute;left:300px;bottom: 0;">
                             <p>图片格式支持：jpg/png，</p>
 
@@ -70,21 +70,20 @@
                             <p>图片大小：不超过50K</p>
                         </div>
                     </td>
-
                 </tr>
                 <tr>
-                    <td>法定PDF文件名称:</td>
-                    <td><input class="layui-input x-input" type="text" name="lawsFDBName"></td>
+                    <td>法规PDF文件名称:</td>
+                    <td><input class="layui-input x-input" type="text" name="lawPDFTitle"></td>
                 </tr>
                 <tr>
                     <td>法规PDF文件下载链接:</td>
-                    <td><input class="layui-input x-input" type="text" name="lawsDownload"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawDownloadLink"></td>
                 </tr>
                 <tr>
                 <td style="vertical-align: top;">*法规版本说明:</td>
                 <td>
                     <#--<div id="froala-editor" style="width: 500px;">-->
-                        <textarea id="froala-editor" name="lawsState" hidden></textarea>
+                        <textarea id="froala-editor" name="lawDescription" hidden></textarea>
                 <#--</div>-->
 
 

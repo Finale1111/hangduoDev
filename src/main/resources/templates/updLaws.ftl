@@ -31,35 +31,36 @@
     </header>
     <footer>
         <div>
+            <form action="/updLawAction" method="post">
             <table class="biaodan" cellspacing="10px">
                 <tr>
                     <td style="width: 300px;">*法规部号:</td>
-                    <td><input class="layui-input x-input" type="text" value="${lawInfo.lawNum}"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawNum" value="${lawInfo.lawNum}"></td>
                 </tr>
-                <tr>
+                <tr style="display:none;">
                     <td>法规号别名:</td>
-                    <td><input class="layui-input x-input" type="text" value="${lawInfo.lawAlias}"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawAlias" value="${lawInfo.lawAlias}"></td>
                 </tr>
                 <tr>
                     <td>法规版本号:</td>
-                    <td><input class="layui-input x-input" type="text" value="${lawInfo.lawVersion}"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawVersion" value="${lawInfo.lawVersion}"></td>
                 </tr>
                 <tr>
                     <td>*法规名称:</td>
-                    <td><input class="layui-input x-input" type="text" value="${lawInfo.lawTitle}"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawTitle" value="${lawInfo.lawTitle}"></td>
                 </tr>
                 <tr>
                     <td>*是否显示:</td>
                     <td class="layui-form">
-                            <div class="layui-input-block" style="margin-left: 0px">
-                                <#if lawInfo.showStatus==1>
-                                    <input type="radio" name="" value="0" title="显示" checked>
-                                    <input type="radio" name="" value="1" title="不显示">
-                                <#elseif lawInfo.showStatus==0>
-                                    <input type="radio" name="" value="0" title="显示" >
-                                    <input type="radio" name="" value="1" title="不显示" checked>
-                                </#if>
-                                </div>
+                        <div class="layui-input-block" style="margin-left: 0px">
+                            <#if lawInfo.showStatus==1>
+                                <input type="radio" name="showStatus" value="0" title="显示" checked>
+                                <input type="radio" name="showStatus" value="1" title="不显示">
+                            <#elseif lawInfo.showStatus==0>
+                                <input type="radio" name="showStatus" value="0" title="显示" >
+                                <input type="radio" name="showStatus" value="1" title="不显示" checked>
+                            </#if>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -78,23 +79,25 @@
                 </tr>
                 <tr>
                     <td>法定PDF文件名称:</td>
-                    <td><input class="layui-input x-input" type="text" value="${lawInfo.lawPDFTitle}"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawPDFTitle" value="${lawInfo.lawPDFTitle}"></td>
                 </tr>
                 <tr>
                     <td>法规PDF文件下载链接:</td>
-                    <td><input class="layui-input x-input" type="text" value="${lawInfo.lawDownloadLink}"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawDownloadLink" value="${lawInfo.lawDownloadLink}"></td>
                 </tr>
                 <tr>
                     <td style="vertical-align: top;">*法规版本说明:</td>
                     <td>
-                        <div id="froala-editor" style="width: 500px;">
-                            ${lawInfo.lawDescription}
-                        </div>
+                    <div id="froala-editor" style="width: 500px;">
+                        <textarea id="froala-editor" name="lawDescription" hidden>${lawInfo.lawDescription}</textarea>
+                    </div>
 
-                        <button class="layui-btn layui-btn-primary x-btn" style="margin-top: 20px;">保存</button>
+
+                        <button class="layui-btn layui-btn-primary x-btn" style="margin-top: 20px;" type="submit">保存</button>
                     </td>
                 </tr>
             </table>
+            </form>
         </div>
     </footer>
 </div>

@@ -30,4 +30,6 @@ public interface LawDao {
     int addCatalog(Catalog catalog);
 
     Integer delLaw(@Param("lawAlias") String lawAlias);
+
+    int updLaw(Law law);
 }
