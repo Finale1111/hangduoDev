@@ -28,14 +28,11 @@
                     <td style="width: 300px;">*法规:</td>
                     <td class="layui-form">
                         <div class="layui-input-inline x-select">
-                            <select name="quiz">
+                            <select name="lawAlias" lay-filter="tests" id="ajaxLaws">
                                 <option value="请选择">请选择</option>
-                                <option value="CCAR-21-R4 民用航空产品和零部件合格审定规定">民用航空产品和零部件合格审定规定</option>
-                                <option value="CCAR-23-R3正常类、实用类、特技类和通勤类飞机适航标准">CCAR-23-R3正常类、实用类、特技类和通勤类飞机适航标准</option>
-                                <option value="CCAR-25-R4运输类飞机适航标准">CCAR-25-R4运输类飞机适航标准</option>
-                                <option value="CCAR-26运输类飞机的持续适航和安全改进规定">CCAR-26运输类飞机的持续适航和安全改进规定</option>
-                                <option value="CCAR-27-R1正常类旋翼航空器适航规定">CCAR-27-R1正常类旋翼航空器适航规定</option>
-                                <option value="CCAR-29-R1运输类旋翼航空器适航规定">CCAR-29-R1运输类旋翼航空器适航规定</option>
+                                <#list lawsList as law>
+                                    <option value="${law.lawAlias}">${law.lawAlias}&nbsp;${law.lawTitle}</option>
+                                </#list>
                             </select>
                         </div>
                     </td>
@@ -44,14 +41,8 @@
                     <td>*所在目录:</td>
                     <td class="layui-form">
                         <div class="layui-input-inline x-select">
-                            <select name="quiz">
+                            <select name="supCid" id="fulei" lay-filter="fuji">
                                 <option value="请选择">请选择</option>
-                                <option value="CCAR-21-R4 民用航空产品和零部件合格审定规定">民用航空产品和零部件合格审定规定</option>
-                                <option value="CCAR-23-R3正常类、实用类、特技类和通勤类飞机适航标准">CCAR-23-R3正常类、实用类、特技类和通勤类飞机适航标准</option>
-                                <option value="CCAR-25-R4运输类飞机适航标准">CCAR-25-R4运输类飞机适航标准</option>
-                                <option value="CCAR-26运输类飞机的持续适航和安全改进规定">CCAR-26运输类飞机的持续适航和安全改进规定</option>
-                                <option value="CCAR-27-R1正常类旋翼航空器适航规定">CCAR-27-R1正常类旋翼航空器适航规定</option>
-                                <option value="CCAR-29-R1运输类旋翼航空器适航规定">CCAR-29-R1运输类旋翼航空器适航规定</option>
                             </select>
                         </div>
                     </td>
@@ -108,8 +99,25 @@
             height:300
         })
     });
-    layui.use('form',function () {
+    layui.use('form', function() {
         var form = layui.form;
+        form.on('select(tests)',function(data){
+            var lawAlias=$("select").val();
+            console.log(data)
+            $.post("qqdgetCatalogs",{"lawAlias":lawAlias},function(returnData,status){
+                alert("ajax");
+                if ("success"==status) {
+                    var result = "<option value='0'>--请选择--</option>";
+                    for(var i = 0;i<returnData.length;i++){
+                        result += "<option value='"+returnData[i].cid+"'>"+
+                                returnData[i].catalogContent+"</option>";
+                    }
+                    $("#fulei").html(result);
+                    form.render('select');
+                }
+            },"json");
+
+        })
     })
 </script>
 
