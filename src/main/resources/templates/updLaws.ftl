@@ -14,6 +14,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="static/layui/css/layui.css">
     <link rel="stylesheet" href="static/css/Xq.css">
+    <style>
+        #pic {
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <div class="overall">
@@ -57,10 +65,8 @@
                 <tr>
                     <td>*首页法规图标:</td>
                     <td style="position: relative;width: 400px;">
-                        <div class="layui-upload-drag" id="shangchuan">
-                            <i class="layui-icon"></i>
-                            <p>点击上传，或将文件拖拽到此处</p>
-                        </div>
+                        <img style="width: 200px;height: 170px;border: 1px dashed #000;position: relative;" alt="asdfas" id="pic" src="" >
+                        <input style="display: none;" id="upload" type="file" name="tu"/>
                         <div style="position: absolute;left:300px;bottom: 0;">
                             <p>图片格式支持：jpg/png，</p>
 
@@ -113,18 +119,21 @@
         var form = layui.form;
 
     });
-    layui.use('upload',function () {
-        var $ = layui.jquery
-        ,upload = layui.upload;
-        upload.render({
-            elem: '#shangchuan'
-            ,url: '/upload/'
-            ,done: function(res){
-                console.log(res)
-            }
-        });
-    })
-</script>
 
+</script>
+<script>
+    $(function() {
+        $("#pic").click(function () {
+            $("#upload").click();  //点击图片的同时,相当于点击了file框
+            $("#upload").on("change",function(){
+                /*	var objUrl = getObjectURL(this.files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+                    if (objUrl) {
+                        $("#pic").attr("src", objUrl) ; //将图片路径存入src中，显示出图片
+                    }*/
+                $("#pic").attr("src", window.URL.createObjectURL(this.files[0])) ;
+            });
+        });
+    });
+</script>
 </body>
 </html>

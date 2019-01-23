@@ -19,7 +19,7 @@
         <div>
             <div class="layui-form" style="position: relative;margin: 50px 0px 30px 0px;">
                         <label class="layui-form-label">选择法规：</label>
-                        <form action="/searchCatalog" method="post">
+
                             <div class="layui-input-inline">
                                 <select id="lawAlias" name="quiz">
                                     <option value="请选择" selected="selected">请选择</option>
@@ -28,8 +28,8 @@
                                     </#list>
                                 </select>
                             </div>
-                            <input type="submit" value="确定" class="layui-btn-primary x-btn-sm" style="margin-left: 50px;" onclick="getCatalogs()"/>
-                        </form>
+                <button type="submit" class="layui-btn-primary x-btn-sm" style="margin-left: 50px;" onclick="getCatalogs()">确定</button>
+
                 <button class="layui-btn layui-btn-normal" style="position: absolute;right: 0;bottom: 1px;">新增目录</button>
             </div>
             <table class="layui-table" style="word-break:break-all; word-wrap: break-word">
@@ -89,7 +89,7 @@
                 }
             }
         });
-    })
+    });
 
     function getCatalogs() {
         var lawAlias=$("#lawAlias").val();

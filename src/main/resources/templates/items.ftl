@@ -14,9 +14,10 @@
         <div class="daohang">法规管理 / 条款列表</div>
         <div class="title">条款列表</div>
         <div class="layui-form content">
+            <form action="/items" method="post">
             <label class="ziti">法&nbsp;&nbsp;&nbsp;规:</label>
             <div class="layui-input-inline x-select">
-                <select name="quiz">
+                <select name="lawAlias">
                     <option value="请选择" selected="selected">请选择</option>
                     <#list lawsList as law>
                         <option value="${law.lawAlias}">${law.lawAlias}&nbsp;${law.lawTitle}</option>
@@ -27,14 +28,15 @@
         <div class="content">
             <label class="ziti">
                 条款号:
-                <input class="layui-input x-input" type="text">
+                <input name="itemNum" class="layui-input x-input" type="text">
             </label>
             <label class="ziti">
                 关键词:
-                <input class="layui-input x-input" type="text">
+                <input name="keywords" class="layui-input x-input" type="text">
             </label>
-            <button class="layui-btn layui-btn-primary x-btn">搜索</button>
+            <input type="submit" value="搜索" class="layui-btn layui-btn-primary x-btn"/>
         </div>
+        </form>
     </header>
     <footer>
         <div>

@@ -2,8 +2,10 @@ package com.hangduo.dev1.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.hangduo.dev1.entity.Admin;
+import com.hangduo.dev1.entity.Question;
 import com.hangduo.dev1.entity.User;
 import com.hangduo.dev1.service.AdminService;
+import com.hangduo.dev1.service.MessageService;
 import com.hangduo.dev1.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,11 @@ public class SinController {
 
     @Resource
     AdminService adminService;
+
+
+
+    @Resource
+    MessageService messageService;
 
     @RequestMapping("/userSearch")
     public String userSearch(@RequestParam(defaultValue = "",required = false) String userPhone,
@@ -64,6 +71,24 @@ public class SinController {
 
         boolean flag=false;
         flag=adminService.DelAdmin(aid);
+        Map<String,String> resultMap=new HashMap<String,String>();
+        if (flag){
+            resultMap.put("result","true");
+        }else{
+            resultMap.put("result","false");
+        }
+        return resultMap;
+    }
+
+
+
+
+    @RequestMapping("delMess")
+    @ResponseBody
+    public Map<String,String> dekMess(@RequestParam(value="mid",required =false)Integer mid){
+
+        boolean flag=false;
+        flag=messageService.delMessages(mid);
         Map<String,String> resultMap=new HashMap<String,String>();
         if (flag){
             resultMap.put("result","true");

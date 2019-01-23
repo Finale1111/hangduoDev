@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hangduo.dev1.dao.QuestionDao">
+
+    <select id="getQuestion" parameterType="int" resultMap="question">
+         SELECT * FROM questions ORDER BY qid
+    </select>
+
+    <select id="getQuestionByPhoneandContent" parameterType="String" resultMap="question">
+    <!--SELECT * FROM questions WHERE qst_phone LIKE CONCAT('%',#{qstPhone},'%') and qst_content LIKE CONCAT('%',#{qstContent},'%')-->
+
+        SELECT * FROM questions
+        <where>
+            <if test='qstPhone!="x"'>
+                qst_phone LIKE CONCAT('%',#{qstPhone},'%')
+            </if>
+            <if test='qstContent!="x"'>
+                and qst_content LIKE CONCAT('%',#{qstContent},'%')
+            </if>
+        </where>
+
+    </select>
+
+
+
+    <delete id="delQuestion">
+
+DELETE FROM hangduoTest.questions
+	WHERE
+	<if test="qid!=null">qid = #{qid}</if>
+
+    </delete>
+
+
+
+    <resultMap id="question" type="com.hangduo.dev1.entity.Question" >
+        <id column="qid" property="qid"  />
+        <result column="uid" property="uid"  />
+        <result column="iid" property="iid"  />
+        <result column="qst_name" property="qstName"  />
+        <result column="qst_phone" property="qstPhone"  />
+        <result column="qst_content" property="qstContent"  />
+        <result column="qst_time" property="qstTime"  />
+        <result column="status" property="status"  />
+    </resultMap>
+</mapper>

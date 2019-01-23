@@ -63,7 +63,8 @@
                             </td>
                             <td>
                                 <a href="/updLaw?id=${law.lawAlias}" class="caozuo">编辑</a>
-                                <a href="" class="caozuo">删除</a>
+                                <input type="hidden" class="lawAlias" value="${law.lawAlias}">
+                                <a href="" class="caozuo" onclick="delLaw(this)">删除</a>
                             </td>
                         </tr>
                     </#list>
@@ -97,8 +98,22 @@
         })
 
         function toAddLaws() {
-            alert("要去新的");
             window.location.href="addLaws";
+        }
+
+        function delLaw(dom) {
+            var id=$(dom).prev().val();
+            arr=id.split("-");
+            var laws=arr.join("-");
+            if (confirm('确认删除吗?')) {
+                $.post("delLaw","lawAlias="+laws,function (data) {
+                    if (data.result=="true") {
+                        alert("删除成功!");
+                    } else {
+                        alert("删除失败!");
+                    }
+                },"json");
+            }
         }
 
     </script>

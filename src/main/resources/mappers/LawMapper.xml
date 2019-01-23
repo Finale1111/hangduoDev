@@ -28,6 +28,32 @@
         SELECT * from items i JOIN laws l ON i.law_alias=l.law_alias where i.law_alias=#{lawAlias} order by i_num
     </select>
 
+    <select id="getItemsMuti" parameterType="java.lang.String" resultMap="item">
+        select * from items i join laws l on i.law_alias=l.law_alias where i.law_alias=#{lawAlias} and (i.i_num=#{itemNum} or i.keywords like concat('%',#{keywords},'%')) order by i_num
+    </select>
+
+    <insert id="addLaw" parameterType="com.hangduo.dev1.entity.Law">
+        insert into laws values (#{lawAlias},#{lawNum},#{lawVersion},#{lawTitle},#{lawLogoUrl},#{lawPDFTitle},#{lawDownloadLink},#{lawDescription},#{showStatus})
+    </insert>
+
+    <select id="getCatalogByCid" parameterType="int" resultMap="catalog">
+        select * from catalogs where cid=#{cid}
+    </select>
+
+    <insert id="addCatalog" parameterType="com.hangduo.dev1.entity.Catalog">
+        insert into catalogs(law_alias,c_content,c_level,sup_cid,c_index)  values (#{lawAlias},#{catalogContent},#{cLevel},#{supCid},#{cIndex})
+    </insert>
+
+    <delete id="delLaw">
+        DELETE l,c,i
+        FROM laws l
+        LEFT OUTER JOIN catalogs c
+        ON l.law_alias = c.law_alias
+        LEFT OUTER JOIN items i
+        ON c.law_alias = i.law_alias
+        WHERE l.law_alias=#{lawAlias};
+    </delete>
+
     <resultMap id="law" type="com.hangduo.dev1.entity.Law">
         <id column="law_alias" property="lawAlias"></id>
         <result column="law_num" property="lawNum"></result>
@@ -59,6 +85,7 @@
         <result column="i_title" property="itemTitle"></result>
         <result column="i_content" property="itemContent"></result>
         <result column="version" property="law_version"></result>
+        <result column="keywords" property="keywords"></result>
     </resultMap>
 
 </mapper>

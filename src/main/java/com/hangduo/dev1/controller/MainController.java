@@ -1,13 +1,8 @@
 package com.hangduo.dev1.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.hangduo.dev1.entity.Admin;
-import com.hangduo.dev1.entity.Catalog;
-import com.hangduo.dev1.entity.Law;
-import com.hangduo.dev1.entity.User;
-import com.hangduo.dev1.service.AdminService;
-import com.hangduo.dev1.service.LawService;
-import com.hangduo.dev1.service.UserService;
+import com.hangduo.dev1.entity.*;
+import com.hangduo.dev1.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +20,12 @@ public class MainController {
     LawService lawService;
     @Resource
     AdminService adminService;
+    @Resource
+    QuestionService questionService;
+
+    @Resource
+    MessageService messageService;
+
 
 
     @RequestMapping(value = "/laws")
@@ -36,7 +37,11 @@ public class MainController {
     }
 
     @RequestMapping(value = "/messages")
-    public String toMessage(){
+    public String toMessage(Model model,
+                            @RequestParam(defaultValue = "1",required = false) int pageNumber,
+                            @RequestParam(defaultValue = "8",required = false) int pageSize){
+        PageInfo<Message> messages=messageService.getMessage(pageNumber,pageSize);
+        model.addAttribute("messages",messages);
         return "messages";
     }
 
@@ -55,7 +60,10 @@ public class MainController {
     }
 
     @RequestMapping(value = "/questions")
-    public String toQuestions(){
+    public String toQuestions(Model model,@RequestParam(defaultValue = "1",required = false) int pageNumber,
+                              @RequestParam(defaultValue = "10",required = false) int pageSize){
+        PageInfo<Question> questions=questionService.getAllQuestion(pageNumber,pageSize);
+        model.addAttribute("questions",questions);
         return "questions";
     }
 
@@ -82,7 +90,11 @@ public class MainController {
 
 
     @RequestMapping(value = "/addItems")
-    public String toAddItems(){
+    public String toAddItems(Model model){
+
+        List<Law> lawsList=lawService.getLawsList();
+        model.addAttribute("lawsList",lawsList);
+
         return "addItems";
     }
 
@@ -93,7 +105,11 @@ public class MainController {
 
 
     @RequestMapping(value = "/addCatalogs")
-    public String toAddCatalogs(){
+    public String toAddCatalogs(Model model){
+
+        List<Law> lawsList=lawService.getLawsList();
+        model.addAttribute("lawsList",lawsList);
+
         return "addCatalogs";
     }
 

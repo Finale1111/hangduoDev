@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hangduo.dev1.dao.MessageDao">
+
+
+
+    <select id="getMessage" resultMap="message">
+        SELECT * FROM messages ORDER BY mid
+    </select>
+
+
+    <delete id="delMessage">
+DELETE FROM hangduoTest.messages
+	WHERE
+	<if test="mid!=null">mid =#{mid}</if>
+
+    </delete>
+
+    <resultMap id="message" type="com.hangduo.dev1.entity.Message">
+        <id column="mid" property="mid"></id>
+        <result column="m_content" property="msgContent"></result>
+        <result column="m_time" property="msgTime"></result>
+        <result column="status" property="status"></result>
+    </resultMap>
+
+</mapper>

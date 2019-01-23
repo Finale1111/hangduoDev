@@ -24,4 +24,12 @@ public interface LawService {
 
     PageInfo<Item> getItemsFromLaw(String lawAlias,int pageNum,int pageSize);
 
+    PageInfo<Item> getItemsMuti(String lawAlias,String itemNum,String keywords,int pageNum,int pageSize);
+
+    boolean addLaw(Law law);
+
+    boolean addCatalog(Catalog catalog);
+
+    boolean DelLaw(String lawAlias);
+
 }

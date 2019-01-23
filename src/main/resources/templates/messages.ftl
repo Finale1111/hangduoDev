@@ -7,12 +7,14 @@
     <title>Title</title>
     <link rel="stylesheet" href="static/layui/css/layui.css">
     <link rel="stylesheet" href="static/css/Xq.css">
+    <script src="static/js/jquery-1.9.1.min.js"></script>
 </head>
 <body style="width: 1149px;">
 <div class="overall">
     <header>
         <div class="daohang">设置 / 意见反馈列表</div>
         <div class="title">意见反馈列表</div>
+
     </header>
     <footer>
         <div>
@@ -24,92 +26,24 @@
                 </colgroup>
                 <thead>
                 <tr>
-                    <th>标题</th>
-                    <th>标题</th>
+                    <th>意见反馈内容</th>
+                    <th>意见反馈时间</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
+                <#list messages.list as message>
                 <tr>
-                    <td>内容</td>
-                    <td>内容</td>
+                    <td>${message.msgContent}</td>
+                    <td>${message.msgTime}</td>
                     <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
+                        <input type="hidden" value="${message.mid}" class="id" >
+                        <a href="#" class="caozuo">查看</a>
+                        <a href="javascript:void(0)" class="caozuo" onclick="delMessa(this)">删除</ a>
                     </td>
                 </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>
-                        <a href="" class="caozuo">编辑</a>
-                        <a href="" class="caozuo">删除</a>
-                    </td>
-                </tr>
+                </#list>
+
                 </tbody>
             </table>
             <div id="page" class="fenye"></div>
@@ -117,6 +51,8 @@
     </footer>
 </div>
 <script src="static/layui/layui.js"></script>
+
+<script></script>
 <script>
     //Demo
     layui.use('form', function(){
@@ -125,14 +61,37 @@
     });
     layui.use(['laypage','layer'],function () {
         var laypage = layui.laypage;
-        laypage.render({
-            elem: 'page'
-            ,count: 100
-            ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
-            ,jump: function(obj){
-            }
-        });
+        var total=${messages.total}
+                laypage.render({
+                    elem: 'page'
+                    ,count: total
+                    ,curr:${messages.pageNum}
+                    ,limit:${messages.pageSize}
+                    ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                    ,jump: function(obj,first){
+                        if(!first){
+                            window.location="messages?pageNumber="+obj.curr;
+                        }
+                    }
+                });
     })
+    function delMessa(dom) {
+        var id=$(".id").val();
+        arr=id.split(",");
+        var mid=arr.join("");
+        if (confirm('确认删除吗?')) {
+            $.post("delMess","mid="+mid,function (data) {
+              //  alert(mid);
+                if (data.result == "true") {
+                    $(dom).parent().parent().remove();
+                    window.location.href = "/messages";
+                    alert("删除成功!");
+                } else {
+                    alert("删除失败!");
+                }
+            }, "json");
+        }
+    }
 </script>
 </body>
 </html>

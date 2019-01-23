@@ -96,4 +96,47 @@ public class LawServiceImpl implements LawService {
         PageInfo<Item> result=new PageInfo<>(items);
         return result;
     }
+
+    @Override
+    public PageInfo<Item> getItemsMuti(String lawAlias, String itemNum, String keywords, int pageNum, int pageSize) {
+
+        System.out.println("--server---"+lawAlias);
+
+        PageHelper.startPage(pageNum,pageSize);
+        List<Item> items=lawDao.getItemsMuti(lawAlias,itemNum,keywords);
+        PageInfo<Item> result=new PageInfo<>(items);
+        return result;
+    }
+
+    @Override
+    public boolean addLaw(Law law) {
+        int i=lawDao.addLaw(law);
+        if (i>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public boolean addCatalog(Catalog catalog) {
+
+        int supCid=catalog.getSupCid();
+        int level=lawDao.getCatalogByCid(supCid).getcLevel()+1;
+        catalog.setcLevel(level);
+
+        if (lawDao.addCatalog(catalog)>0){
+            return true;
+        }else{
+            return false;
+        }
+
+
+    }
+
+
+    @Override
+    public boolean DelLaw(String lawAlias) {
+        return lawDao.delLaw(lawAlias)>0?true:false;
+    }
 }
