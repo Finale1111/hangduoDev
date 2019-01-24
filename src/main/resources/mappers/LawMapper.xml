@@ -29,7 +29,16 @@
     </select>
 
     <select id="getItemsMuti" parameterType="java.lang.String" resultMap="item">
-        select * from items i join laws l on i.law_alias=l.law_alias where i.law_alias=#{lawAlias} and (i.i_num=#{itemNum} or i.keywords like concat('%',#{keywords},'%')) order by i_num
+        select * from items i join laws l on i.law_alias=l.law_alias
+        <where>
+          <if test='lawAlias="已选择"'>
+              i.law_alias=#{lawAlias}
+          </if>
+          <if test='itemNum!="0" or keywords!="x"'>
+              and (i.i_num=#{itemNum} or i.keywords like concat('%',#{keywords},'%'))
+          </if>
+        </where>
+        order by i_num
     </select>
 
     <insert id="addLaw" parameterType="com.hangduo.dev1.entity.Law">

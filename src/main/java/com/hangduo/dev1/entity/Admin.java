@@ -1,5 +1,8 @@
 package com.hangduo.dev1.entity;
 
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.sql.Date;
 
 public class Admin {
@@ -7,6 +10,7 @@ public class Admin {
     private int aid,adminLevel,status;
     private String adminName,adminPhone,password;
     private Date regDate;
+
 
     public int getAid() {
         return aid;
