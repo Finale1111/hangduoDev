@@ -23,7 +23,11 @@ public interface LawDao {
 
     List<Item> getItemsMuti(String lawAlias,String itemNum,String keywords);
 
+    List<Item> getItemFromCatalog(int cid);
+
     int addLaw(Law law);
+
+    int addItem(Item item);
 
     Catalog getCatalogByCid(int cid);
 
@@ -31,5 +35,13 @@ public interface LawDao {
 
     Integer delLaw(@Param("lawAlias") String lawAlias);
 
+    Integer delCatalog(@Param("cid")int cid);
+
     int updLaw(Law law);
+
+    Item getItem(int iid);
+
+    int delItem(int iid);
+
+    int updItem(Item item);
 }

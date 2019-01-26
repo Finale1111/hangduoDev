@@ -72,7 +72,7 @@
            var lawAlias=$("select").val();
            console.log(data)
             $.post("qqdgetCatalogs",{"lawAlias":lawAlias},function(returnData,status){
-                alert("ajax");
+
                 if ("success"==status) {
                     var result = "<option value='0'>--请选择--</option>";
                     for(var i = 0;i<returnData.length;i++){

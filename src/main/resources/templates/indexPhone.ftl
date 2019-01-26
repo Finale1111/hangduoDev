@@ -24,7 +24,7 @@
         <span class="mui-icon mui-icon-home"></span>
         <span class="mui-tab-label">适航知识</span>
     </a>
-    <a class="mui-tab-item" href="toAddConsultController">
+    <a class="mui-tab-item" href="question">
         <span class="mui-icon mui-icon-email"></span>
         <span class="mui-tab-label">咨询服务</span>
     </a>
@@ -99,6 +99,7 @@
             defaultTab.classList.add('mui-active');
         }
     });
+
 </script>
 </body>
 </html>

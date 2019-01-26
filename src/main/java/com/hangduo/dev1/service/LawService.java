@@ -12,11 +12,15 @@ public interface LawService {
 
     Law getLawByAlias(String lawAlias);
 
+    Item getItemByIid(int iid);
+
     PageInfo<Law> searchLaws(int pageNum,int pageSize,int lawNum,String title);
 
     PageInfo<Law> getAllLaws(int pageNum,int pageSize);
 
     PageInfo<Catalog> getCatalogsFromLaw(String lawAlias,int pageNum,int pageSize);
+
+    List<Catalog> getCatalogsFromLaw(String lawAlias);
 
     List<Catalog> getSubCalogs(int cid);
 
@@ -28,10 +32,18 @@ public interface LawService {
 
     boolean addLaw(Law law);
 
+    boolean addItem(Item item);
+
     boolean addCatalog(Catalog catalog);
 
     boolean DelLaw(String lawAlias);
 
+    boolean delCatalog(int cid);
+
+    boolean delItem(int iid);
+
     boolean updLaw(Law law);
+
+    boolean updItem(Item item);
 
 }

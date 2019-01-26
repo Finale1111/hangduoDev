@@ -24,6 +24,10 @@
         select * from catalogs where sup_cid=#{cid} order by c_index
     </select>
 
+    <select id="getItem" parameterType="int" resultMap="item">
+        select * from items where iid=#{iid}
+    </select>
+
     <select id="getItems" parameterType="java.lang.String" resultMap="item">
         SELECT * from items i JOIN laws l ON i.law_alias=l.law_alias where i.law_alias=#{lawAlias} order by i_num
     </select>
@@ -45,6 +49,11 @@
         insert into laws values (#{lawAlias},#{lawNum},#{lawVersion},#{lawTitle},'loading.gif',#{lawPDFTitle},#{lawDownloadLink},#{lawDescription},#{showStatus})
     </insert>
 
+    <insert id="addItem" parameterType="com.hangduo.dev1.entity.Item">
+        insert into `items`(cid,law_alias,i_num,i_alias,i_content,i_title,i_version,keywords)
+        values (#{cid},#{lawAlias},#{itemNum},#{itemAlias},#{itemContent},#{itemTitle},#{version},#{keywords})
+    </insert>
+
     <select id="getCatalogByCid" parameterType="int" resultMap="catalog">
         select * from catalogs where cid=#{cid}
     </select>
@@ -64,8 +73,28 @@
         WHERE l.law_alias=#{lawAlias};
     </delete>
 
+    <delete id="delCatalog" parameterType="int">
+        DELETE c,i
+        FROM  catalogs c
+        LEFT OUTER JOIN items i
+        ON c.cid = i.cid
+        WHERE c.cid=#{cid};
+    </delete>
+
+    <delete id="delItem" parameterType="int">
+        delete from items where iid=#{iid}
+    </delete>
+
     <update id="updLaw" parameterType="com.hangduo.dev1.entity.Law">
         update laws set law_num=#{lawNum},law_title=#{lawTitle},law_version=#{lawVersion},law_pdf_title=#{lawPDFTitle},law_dl_link=#{lawDownloadLink},law_description=#{lawDescription},show_status=#{showStatus} where law_alias=#{lawAlias}
+    </update>
+
+    <select id="getItemFromCatalog" parameterType="int" resultMap="item">
+        select * from items where cid=#{cid} order by i_num
+    </select>
+
+    <update id="updItem" parameterType="com.hangduo.dev1.entity.Item">
+        update items set i_num=#{itemNum},law_alias=#{lawAlias},i_alias=#{itemAlias},i_title=#{itemTitle},i_content=#{itemContent},i_version=#{version},keywords=#{keywords} where iid=#{iid}
     </update>
 
     <resultMap id="law" type="com.hangduo.dev1.entity.Law">
@@ -98,7 +127,7 @@
         <result column="i_alias" property="itemAlias"></result>
         <result column="i_title" property="itemTitle"></result>
         <result column="i_content" property="itemContent"></result>
-        <result column="version" property="law_version"></result>
+        <result column="i_version" property="version"></result>
         <result column="keywords" property="keywords"></result>
     </resultMap>
 

@@ -28,7 +28,7 @@
 
     </style>
 </head>
-<body>
+<body
 <div class="mui-content">
     <div style="height: 140px;padding-top: 25px;background: url(../static/images/mine_banner.jpg) no-repeat;-webkit-background-size: 100% 140px;background-size: 100% 140px;text-align: center;">
         <div style="text-align: center;background-color: #fff;width: 75px;height: 75px;margin: 0 auto;border-radius: 50%;line-height: 85px;">
@@ -44,28 +44,28 @@
                 <span class="mui-icon mui-icon-arrowright"></span>
             </div>
         </a>
-        <a class="x-group-a" style="color: #000;text-decoration: none;display: block;margin-bottom: 10px;" target="_parent" href="userListConsult">
+        <a class="x-group-a" style="color: #000;text-decoration: none;display: block;margin-bottom: 10px;" target="_parent" href="userConsult">
             <div style="color: #007aff;"><span class="iconfont icon-history-alarm"></span></div>
             <div style="margin-left: 5px;">历史查询</div>
             <div style="position: absolute;right: 0;">
                 <span class="mui-icon mui-icon-arrowright"></span>
             </div>
         </a>
-        <a style="color: #000;text-decoration: none;display: block" target="_parent" href="updatePhone" class="x-group-a">
+        <a style="color: #000;text-decoration: none;display: block" target="_parent"  class="x-group-a" href="Phone">
             <div style="color: #007aff;"><span class="iconfont icon-shouji"></span></div>
             <div style="margin-left: 5px;">手机号</div>
             <div style="position: absolute;right: 0;">
                 <span class="mui-icon mui-icon-arrowright"></span>
             </div>
         </a>
-        <a style="color: #000;text-decoration: none;display: block;margin-bottom: 10px;" target="_parent" href="updatePassword" class="x-group-a">
+        <a style="color: #000;text-decoration: none;display: block;margin-bottom: 10px;" target="_parent" href="Password" class="x-group-a">
             <div style="color: #007aff;"><span class="iconfont icon-suo"></span></div>
             <div style="margin-left: 5px;">修改密码</div>
             <div style="position: absolute;right: 0;">
                 <span class="mui-icon mui-icon-arrowright"></span>
             </div>
         </a>
-        <a style="color: #000;text-decoration: none;display: block;margin-bottom: 10px;" target="_parent" href="toAddLeaveController" class="x-group-a">
+        <a style="color: #000;text-decoration: none;display: block;margin-bottom: 10px;" target="_parent" href="" class="x-group-a">
             <div style="color: #007aff;"><span class="iconfont icon-yijianfankui"></span></div>
             <div style="margin-left: 5px;">意见反馈</div>
             <div style="position: absolute;right: 0;">
@@ -101,6 +101,8 @@
             parent.window.location.href='loginUser'
         });
     });
+
+
 </script>
 </body>
 </html>

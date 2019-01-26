@@ -107,7 +107,7 @@ public class ItemController {
             itemPageInfo=lawService.getItemsFromLaw(lawAlias,pageNumber,pageSize);
 
         }else{
-            System.out.println("===ctrl===:"+lawAlias);
+
             itemPageInfo=lawService.getItemsMuti(lawAlias,itemNum,keywords,pageNumber,pageSize);
         }
 
@@ -163,6 +163,12 @@ public class ItemController {
         }
     }
 
+    @RequestMapping("/addItemsAction")
+    public String addItemsAction(Item item){
+        lawService.addItem(item);
+        return "redirect:/items";
+    }
+
     @RequestMapping("delLaw")
     @ResponseBody
     public Map<String,String> delLaw(@RequestParam(value="lawAlias",required =false)String lawAlias){
@@ -177,6 +183,37 @@ public class ItemController {
         }
         return resultMap;
     }
+
+    @RequestMapping("delCatalogAction")
+    @ResponseBody
+    public Map<String,String> delCatalog(int cid){
+        boolean flag=false;
+        flag=lawService.delCatalog(cid);
+        Map<String,String> resultMap=new HashMap<String,String>();
+
+        if (flag){
+            resultMap.put("result","true");
+        }else{
+            resultMap.put("result","false");
+        }
+        return resultMap;
+    }
+
+    @RequestMapping("delItemAction")
+    @ResponseBody
+    public Map<String,String> delItemAction(int iid){
+        boolean flag=false;
+        flag=lawService.delItem(iid);
+        Map<String,String> resultMap=new HashMap<String,String>();
+
+        if (flag){
+            resultMap.put("result","true");
+        }else{
+            resultMap.put("result","false");
+        }
+        return resultMap;
+    }
+
 
     @RequestMapping("delQuestion")
     @ResponseBody
@@ -206,8 +243,20 @@ public class ItemController {
 
     @RequestMapping("/updLawAction")
     public String updLawAction(Law law){
+        String desOld=law.getLawDescription();
+        int length=desOld.length();
+        String desNew=desOld.substring(3,length-4);
+        law.setLawDescription(desNew);
         lawService.updLaw(law);
         return "redirect:/laws";
+    }
+
+    @RequestMapping("/updItemsAction")
+    public String updItemsAction(Item item){
+
+        lawService.updItem(item);
+
+        return "redirect:/items";
     }
 
 }

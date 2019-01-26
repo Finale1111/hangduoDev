@@ -22,7 +22,6 @@ public class MainController {
     AdminService adminService;
     @Resource
     QuestionService questionService;
-
     @Resource
     MessageService messageService;
 
@@ -120,6 +119,18 @@ public class MainController {
         model.addAttribute("lawInfo",lawInfo);
 
         return "updLaws";
+    }
+
+    @RequestMapping(value = "/updItem")
+    public String updItem(String iid,Model model){
+        String iidS=iid.replaceAll(",","");
+        int iidInt=new Integer(iidS);
+        Item item=lawService.getItemByIid(iidInt);
+        model.addAttribute("item",item);
+        List<Law> lawsList=lawService.getLawsList();
+        model.addAttribute("lawsList",lawsList);
+
+        return "updItems";
     }
 
 

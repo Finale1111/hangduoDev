@@ -1,9 +1,13 @@
 package com.hangduo.dev1.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Catalog {
 
     private int cid,cLevel,cIndex,supCid;
     private String catalogContent,lawAlias;
+    private List<Item> items=new ArrayList<>();
 
     public int getCid() {
         return cid;
@@ -51,5 +55,13 @@ public class Catalog {
 
     public void setLawAlias(String lawAlias) {
         this.lawAlias = lawAlias;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 }

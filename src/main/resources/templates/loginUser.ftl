@@ -53,7 +53,7 @@
 </header>
 <div class="mui-content">
     <div style="height: 160px;background:url(../static/images/banner.jpg) no-repeat;-webkit-background-size: 100% 160px;background-size: 100% 160px;position: relative;padding-left: 10px;padding-right: 10px;">
-        <a href="" style="position: absolute;right: 10px;top: 5px;color: #fff;text-decoration: none;">游客访问</a>
+        <a href="indexPhone" style="position: absolute;right: 10px;top: 5px;color: #fff;text-decoration: none;">游客访问</a>
         <div class="header" style="position:relative;width: 100%;top:108px;text-align: center;margin: 0 auto;">
             <div class="switch" style="display: block; position: absolute;right: 0;left: 0;" id="switch"><a style="color: white;" class="switch_btn_focus" id="switch_qlogin" href="javascript:void(0);" tabindex="7">密码登录</a>
                 <a style="color: white;" class="switch_btn" id="switch_login" href="javascript:void(0);" tabindex="8">验证码登录</a><div id="switch_bottom" style="position: absolute; width: 64px; left: 30px;color: #fff;"></div>
@@ -71,14 +71,14 @@
             <div class="mui-input-group" style="padding: 20px 20px 0px 20px;position: relative;">
                 <div class="mui-input-row">
                     <label style="width: 18%;color: #007aff;"><span class="mui-icon mui-icon-phone"></span></label>
-                    <input style="font-size: 16px;width: 82%;" type="text" placeholder="手机号">
+                    <input style="font-size: 16px;width: 82%;" type="text" id="phone" name="phone" placeholder="手机号">
                 </div>
                 <div class="mui-input-row">
                     <label style="width: 18%;color: #007aff;"><span style="font-size: 20px;" class="iconfont icon-mimasuo"></span></label>
-                    <input style="font-size: 16px;width: 82%;" type="password" placeholder="密码">
+                    <input style="font-size: 16px;width: 82%;" type="password" id="pwd" name="pwd" placeholder="密码">
                 </div>
                 <a style="position: absolute;right: 25px;" href="forgetPassword">忘记密码</a>
-                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" style="background-color: #007aff;display: block;margin: 30px auto 20px;color: white;width: 200px;">登录</button>
+                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" style="background-color: #007aff;display: block;margin: 30px auto 20px;color: white;width: 200px;" onclick="login()">登录</button>
             </div>
             <div style="text-align: center;">
                 <a href="addUser">注册</a>
@@ -111,17 +111,19 @@
 </div>
 
 
-
-
-
-
-<script src="../static/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="js/login.js"></script>
+<script src="../static/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../static/js/login.js"></script>
 <script src="../static/js/mui.min.js"></script>
 <script>
     mui.init({
         swipeBack:true //启用右滑关闭功能
     });
+    
+    function login() {
+        var phone=$("#phone").val();
+        var pwd=$("#pwd").val();
+        window.location.href="login?phone="+phone+"&pwd="+pwd;
+    }
 </script>
 
 </body>

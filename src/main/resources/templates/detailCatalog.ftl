@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="./css/mui.min.css">
-    <link rel="stylesheet" href="./css/Xq.css">
-    <link rel="stylesheet" href="./fonts/font_acyazmtbuxi/iconfont.css">
+    <link rel="stylesheet" href="../static/css/mui.min.css">
+    <link rel="stylesheet" href="../static/css/Xq.css">
+    <link rel="stylesheet" href="../static/fonts/font_acyazmtbuxi/iconfont.css">
     <style>
         html, body {
             background-color: #fff;

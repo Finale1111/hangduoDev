@@ -21,7 +21,6 @@
     </style>
   </head>
   <body>
-
     <div class="mui-content">
         <div class="mui-input-row mui-search" style="margin-top: 5px;padding-left: 5px;padding-right: 5px;">
           <input id="sousuo" type="search" class="mui-input-clear" placeholder="">
@@ -29,131 +28,19 @@
         <!--默认显示内容-->
         <div id="neirong1" style="display: block;">
           <ul class="neirong" style="padding: 0px;">
-            <li>
-              <a class="kuai" href="detailLaws" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
-            <li>
-              <a class="kuai" href="" target="_parent">
-                <h2>21</h2>
-                <h6>民用</h6>
-              </a>
-            </li>
+              <#list laws as law>
+                  <li>
+                      <a class="kuai" href="detailLaws?lawAlias=${law.lawAlias}" target="_parent">
+                          <h2>${law.lawNum}</h2>
+                          <h6>${law.lawTitle}</h6>
+                      </a>
+                  </li>
+              </#list>
           </ul>
           <div style="height: 100px;padding: 5px;background-color: #fff;margin-top: 5px;">
             <div style="position: relative;height: 20px;">
-              <a style="position: absolute;left: 0;font-size: 10px;" href="">收藏</a>
-              <a style="position: absolute;right: 0;font-size: 10px;" href="">更多</a>
+              <a style="position: absolute;left: 0;font-size: 10px;" href="collection">收藏</a>
+              <a style="position: absolute;right: 0;font-size: 10px;" href="detailConsult">更多</a>
             </div>
             <div class="lie" style="position: relative;">
               <div><strong>第25.3条</strong></div>
@@ -172,7 +59,7 @@
 
       </div>
     </div>
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
     <script src="../static/js/mui.min.js"></script>
     <script>
       mui.init({
@@ -186,6 +73,12 @@
           $("#sousuo").blur(function () {
               $("#neirong1").css("display","block");
               $("#neirong2").css("display","none");
+          });
+      })
+
+      $(function(){
+          $(".lie").click(function () {
+              window.location.href="detailCatalog";
           });
       });
     </script>

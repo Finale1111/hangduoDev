@@ -51,13 +51,35 @@ public class LawServiceImpl implements LawService {
             }
             subCatalogs.clear();
         }
-        System.out.println("======service："+pageSize);
-        System.out.println("======list size："+catalogs.size());
 
         PageInfo<Catalog> result=new PageInfo<>(catalogs);
-        System.out.println("======service最后："+result.getPageSize());
-
         return result;
+    }
+
+    public List<Catalog> getCatalogsFromLaw(String lawAlias){
+
+        List<Catalog> headCatalogs=lawDao.getHeadCatalogs(lawAlias);
+        List<Catalog> catalogs=new ArrayList<>();
+        for (int i=0;i<headCatalogs.size();i++){
+            catalogs.add(headCatalogs.get(i));
+            List<Catalog> subCatalogs=lawDao.getNextLevelCatalogs(headCatalogs.get(i).getCid());
+            for (int j=0;j<subCatalogs.size();j++){
+                Catalog ic=subCatalogs.get(j);
+                List<Item> its=lawDao.getItemFromCatalog(ic.getCid());
+                ic.setItems(its);
+                catalogs.add(ic);
+                List<Catalog> doubleSubcatalogs=lawDao.getNextLevelCatalogs(subCatalogs.get(j).getCid());
+                for (int k=0;k<doubleSubcatalogs.size();k++){
+                    Catalog icc=subCatalogs.get(k);
+                    List<Item> itss=lawDao.getItemFromCatalog(ic.getCid());
+                    ic.setItems(itss);
+                    catalogs.add(icc);
+                }
+                doubleSubcatalogs.clear();
+            }
+            subCatalogs.clear();
+        }
+        return catalogs;
     }
 
     @Override
@@ -93,6 +115,9 @@ public class LawServiceImpl implements LawService {
     public PageInfo<Item> getItemsFromLaw(String lawAlias, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         List<Item> items=lawDao.getItems(lawAlias);
+        for (Item item:items){
+            System.out.println("xxx"+item.getLawAlias()+item.getVersion());
+        }
         PageInfo<Item> result=new PageInfo<>(items);
         return result;
     }
@@ -111,6 +136,16 @@ public class LawServiceImpl implements LawService {
     @Override
     public boolean addLaw(Law law) {
         int i=lawDao.addLaw(law);
+        if (i>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public boolean addItem(Item item) {
+        int i=lawDao.addItem(item);
         if (i>0){
             return true;
         }else{
@@ -141,8 +176,36 @@ public class LawServiceImpl implements LawService {
     }
 
     @Override
+    public boolean delCatalog(int cid) {
+        return lawDao.delCatalog(cid)>0?true:false;
+    }
+
+    @Override
     public boolean updLaw(Law law) {
         if (lawDao.updLaw(law)>0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delItem(int iid) {
+        if (lawDao.delItem(iid)>0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public Item getItemByIid(int iid) {
+        return lawDao.getItem(iid);
+    }
+
+    @Override
+    public boolean updItem(Item item) {
+        if (lawDao.updItem(item)>0){
             return true;
         }else {
             return false;

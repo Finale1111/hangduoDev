@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="static/layui/css/layui.css">
-    <link rel="stylesheet" href="static/css/Xq.css">
-    <script src="static/js/jquery-1.9.1.min.js"></script>
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/css/Xq.css">
+    <script src="../static/js/jquery-1.9.1.min.js"></script>
 </head>
 <body>
 <div class="overall">
@@ -30,7 +30,7 @@
                             </div>
                 <button type="submit" class="layui-btn-primary x-btn-sm" style="margin-left: 50px;" onclick="getCatalogs()">确定</button>
 
-                <button class="layui-btn layui-btn-normal" style="position: absolute;right: 0;bottom: 1px;">新增目录</button>
+                <a href="addCatalogs"><button class="layui-btn layui-btn-normal" style="position: absolute;right: 0;bottom: 1px;">新增目录</button></a>
             </div>
             <table class="layui-table" style="word-break:break-all; word-wrap: break-word">
                 <thead>
@@ -46,19 +46,19 @@
                         <#if catalog.cLevel==0>
                             <td>+${catalog.catalogContent}</td>
                         <#elseif catalog.cLevel==1>
-                            <td>-${catalog.catalogContent}</td>
+                            <td>-&nbsp;${catalog.catalogContent}</td>
                         <#elseif catalog.cLevel==2>
-                            <td>--${catalog.catalogContent}</td>
+                            <td>--&nbsp;${catalog.catalogContent}</td>
                         </#if>
 
                         <td>${catalog.cIndex}</td>
                         <td>
                             <a href="#" class="caozuo">编辑</a>
-                            <a href="#" class="caozuo">删除</a>
+                            <input type="hidden" value="${catalog.cid}">
+                            <a href="" class="caozuo" onclick="delCatalog(this)">删除</a>
                         </td>
                     </tr>
                 </#list>
-
 
                 </tbody>
             </table>
@@ -66,7 +66,7 @@
         </div>
     </footer>
 </div>
-<script src="static/layui/layui.js"></script>
+<script src="../static/layui/layui.js"></script>
 <script>
     //Demo
     layui.use('form', function(){
@@ -94,6 +94,21 @@
     function getCatalogs() {
         var lawAlias=$("#lawAlias").val();
         window.location.href="/catalogSearch?lawAlias="+lawAlias;
+    }
+    function delCatalog(dom) {
+        var id=$(dom).prev().val();
+        cid=id.replace(/,/g,'');
+        // var cid=arr.join("-");
+
+        if (confirm('确认删除吗?')) {
+            $.post("delCatalogAction",{cid:cid},function (data) {
+                if (data.result=="true") {
+                    alert("删除成功!");
+                } else {
+                    alert("删除失败!");
+                }
+            },"json");
+        }
     }
 </script>
 </body>

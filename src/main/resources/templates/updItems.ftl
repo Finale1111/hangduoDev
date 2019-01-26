@@ -18,12 +18,12 @@
 <body>
 <div class="overall">
     <header>
-        <div class="daohang">法规管理 / 新增条款</div>
-        <div class="title">新增条款</div>
+        <div class="daohang">法规管理 / 编辑条款</div>
+        <div class="title">编辑条款</div>
     </header>
     <footer>
         <div>
-            <form action="/addItemsAction" method="post">
+            <form action="updItemsAction" method="post">
             <table class="biaodan" cellspacing="10px">
                 <tr>
                     <td style="width: 300px;">*法规:</td>
@@ -50,31 +50,31 @@
                 </tr>
                 <tr>
                     <td>*条款编号:</td>
-                    <td><input class="layui-input x-input" type="text" name="itemNum"></td>
+                    <td><input class="layui-input x-input" type="text" name="itemNum" value="${item.itemNum}"></td>
                 </tr>
                 <tr>
                     <td>*条款编号别名:</td>
-                    <td><input class="layui-input x-input" type="text" name="itemAlias"></td>
+                    <td><input class="layui-input x-input" type="text" name="itemAlias" value="${item.itemAlias}"></td>
                 </tr>
                 <tr>
                     <td>条款版本号:</td>
-                    <td><input class="layui-input x-input" type="text" name="version"></td>
+                    <td><input class="layui-input x-input" type="text" name="version" value="${item.version}"></td>
                 </tr>
                 <tr>
                     <td>*条款标题:</td>
-                    <td><input class="layui-input x-input" type="text" name="itemTitle"></td>
+                    <td><input class="layui-input x-input" type="text" name="itemTitle" value="${item.itemTitle}"></td>
                 </tr>
                 <tr>
                     <td>*条款内容:</td>
                     <td>
                         <#--<div id="froala-editor" style="width: 500px;">-->
-                            <textarea id="froala-editor" name="itemContent" cols="50" rows="20"></textarea>
+                            <textarea id="froala-editor" name="itemContent" hidden>${item.itemContent}</textarea>
                         <#--</div>-->
                     </td>
                 </tr>
                 <tr>
                     <td>关键词:</td>
-                    <td><input class="layui-input x-input" type="text" name="keywords"></td>
+                    <td><input class="layui-input x-input" type="text" name="keywords" value="${item.keywords}"></td>
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: center;">
@@ -108,7 +108,7 @@
             var lawAlias=$("select").val();
             console.log(data)
             $.post("qqdgetCatalogs",{"lawAlias":lawAlias},function(returnData,status){
-
+                alert("ajax");
                 if ("success"==status) {
                     var result = "<option value='0'>--请选择--</option>";
                     for(var i = 0;i<returnData.length;i++){

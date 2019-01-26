@@ -5,8 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="static/layui/css/layui.css">
-    <link rel="stylesheet" href="static/css/Xq.css">
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/css/Xq.css">
+    <script src="../static/js/jquery-1.9.1.min.js"></script>
 </head>
 <body>
 <div class="overall">
@@ -41,7 +42,7 @@
     <footer>
         <div>
             <div class="layui-input-block">
-                <button class="layui-btn layui-btn-normal" style="float: right;">新增法规</button>
+                <a href="/addItems"><button class="layui-btn layui-btn-normal" style="float: right;">新增条款</button></a>
             </div>
             <table class="layui-table" style="word-break:break-all; word-wrap: break-word">
                 <thead>
@@ -61,10 +62,11 @@
                         <td>${item.itemAlias}</td>
                         <td>${item.itemTitle}</td>
                         <td>${item.lawAlias}</td>
-                        <td>xx</td>
+                        <td>${item.version}</td>
                         <td>
-                            <a href="" class="caozuo">编辑</a>
-                            <a href="" class="caozuo">删除</a>
+                            <a href="updItem?iid=${item.iid}" class="caozuo">编辑</a>
+                            <input type="hidden" class="iid" value="${item.iid}">
+                            <a href="" class="caozuo" onclick="delItem(this)">删除</a>
                         </td>
                     </tr>
                 </#list>
@@ -75,7 +77,7 @@
         </div>
     </footer>
 </div>
-<script src="static/layui/layui.js"></script>
+<script src="../static/layui/layui.js"></script>
 <script>
     layui.use('form', function(){
         var form = layui.form;
@@ -99,6 +101,21 @@
             }
         });
     })
+    function delItem(dom) {
+        var id=$(dom).prev().val();
+        var iid=id.replace(/,/g,'');
+        // var cid=arr.join("-");
+        alert(iid);
+        if (confirm('确认删除吗?')) {
+            $.post("delItemAction",{iid:iid},function (data) {
+                if (data.result=="true") {
+                    alert("删除成功!");
+                } else {
+                    alert("删除失败!");
+                }
+            },"json");
+        }
+    }
 </script>
 </body>
 </html>

@@ -1,7 +1,9 @@
-<!DOCTYPE html>
+<html lang="en">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
+    <meta charset="utf-8">
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -65,71 +67,57 @@
 
 
         <div class="web_qr_login" id="web_qr_login" style="display: block;">
-
             <!--法规目录-->
-
-            <#list catalogs as catalog>
-                <#if catalog.cLevel=0>
-                    <div class="bufen">
-                        <div class="bufen-title"><strong>${catalog.catalogContent}</strong></div>
-                        <#--<div>总则</div>-->
-                    </div>
-                    <#if (catalog.items)??>
-                        <ul>
-                            <#list catalog.items as item>
-                                <li class="x-content-div">
-                                    <a href="detailCatalog" target="_parent">
-                                        <div><strong>第${item.itemNum}条</strong></div>
-                                        <div>${item.itemTitle}</div>
-                                        <div><span class="mui-icon mui-icon-arrowright"></span></div>
-                                    </a>
-                                </li>
-                            </#list>
-                        </ul>
-                    </#if>
-
-                <#elseif catalog.cLevel=1>
-                    <div class="bufen">
-                        <div class="bufen-title">${catalog.catalogContent}</div>
-                    <#--<div>总则</div>-->
-                    </div>
-                    <#if (catalog.items)??>
-                        <ul>
-                            <#list catalog.items as item>
-                                <li class="x-content-div">
-                                    <a href="detailCatalog" target="_parent">
-                                        <div><strong>第${item.itemNum}条</strong></div>
-                                        <div>${item.itemTitle}</div>
-                                        <div><span class="mui-icon mui-icon-arrowright"></span></div>
-                                    </a>
-                                </li>
-                            </#list>
-                        </ul>
-                    </#if>
-                <#else>
-                    <div class="bufen">
-                        <div class="bufen-title">--${catalog.catalogContent}</div>
-                    <#--<div>总则</div>-->
-                    </div>
-                    <#if (catalog.items)??>
-                        <ul>
-                            <#list catalog.items as item>
-                                <li class="x-content-div">
-                                    <a href="detailCatalog" target="_parent">
-                                        <div><strong>第${item.itemNum}条</strong></div>
-                                        <div>${item.itemTitle}</div>
-                                        <div><span class="mui-icon mui-icon-arrowright"></span></div>
-                                    </a>
-                                </li>
-                            </#list>
-                        </ul>
-                    </#if>
-                </#if>
-
-            </#list>
-                </div>
-
+            <div class="bufen">
+                <div class="bufen-title"><strong>A部分</strong></div>
+                <div>总则</div>
             </div>
+            <div class="x-content">
+                <ul>
+                    <li class="x-content-div">
+                        <div><strong>第25.1条</strong></div>
+                        <div>适用范围</div>
+                        <div><span class="mui-icon mui-icon-arrowright"></span></div>
+                    </li>
+                    <li class="x-content-div">
+                        <div><strong>第25.2条</strong></div>
+                        <div>【备用】</div>
+                        <div><span class="mui-icon mui-icon-arrowright"></span></div>
+                    </li>
+                    <li class="x-content-div">
+                        <div><strong>第25.3条</strong></div>
+                        <div>【备用】</div>
+                        <div><span class="mui-icon mui-icon-arrowright"></span></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <#--<div class="web_qr_login" id="web_qr_login" style="display: block;">-->
+            <#--<!--法规目录&ndash;&gt;-->
+            <#--<div class="bufen">-->
+                <#--<div class="bufen-title"><strong>A部分</strong></div>-->
+                <#--<div>总则</div>-->
+            <#--</div>-->
+            <#--<div class="x-content">-->
+                <#--<ul>-->
+                    <#--<li class="x-content-div">-->
+                        <#--<div><strong>第25.1条</strong></div>-->
+                        <#--<div>适用范围</div>-->
+                        <#--<div><span class="mui-icon mui-icon-arrowright"></span></div>-->
+                    <#--</li>-->
+                    <#--<li class="x-content-div">-->
+                        <#--<div><strong>第25.2条</strong></div>-->
+                        <#--<div>【备用】</div>-->
+                        <#--<div><span class="mui-icon mui-icon-arrowright"></span></div>-->
+                    <#--</li>-->
+                    <#--<li class="x-content-div">-->
+                        <#--<div><strong>第25.3条</strong></div>-->
+                        <#--<div>【备用】</div>-->
+                        <#--<div><span class="mui-icon mui-icon-arrowright"></span></div>-->
+                    <#--</li>-->
+                <#--</ul>-->
+            <#--</div>-->
+        <#--</div>-->
 
         <!--注册-->
         <div class="qlogin" id="qlogin" style="display: none; height: 235px;background-color: #fff;padding: 5px;">
@@ -154,7 +142,6 @@
 
 <script src="../static/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="../static/js/login.js"></script>
-<script src="../static/js/mui.min.js"></script>
 <script>
     mui.init({
         swipeBack:true //启用右滑关闭功能

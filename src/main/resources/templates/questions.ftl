@@ -16,17 +16,17 @@
         <div class="daohang">咨询管理 / 咨询列表</div>
         <div class="title">咨询列表</div>
         <form action="/questionsSearch" method="post">
-        <div class="content">
-            <label class="ziti">
-                联系方式:
-                <input placeholder="手机号" name="qstPhone" class="layui-input x-input" type="text">
-            </label>
-            <label class="ziti">
-                咨询内容:
-                <input class="layui-input x-input" name="qstContent" type="text">
-            </label>
-            <input type="submit" class="layui-btn layui-btn-primary x-btn" value="搜索">
-        </div>
+            <div class="content">
+                <label class="ziti">
+                    联系方式:
+                    <input placeholder="手机号" name="qstPhone" class="layui-input x-input" type="text">
+                </label>
+                <label class="ziti">
+                    咨询内容:
+                    <input class="layui-input x-input" name="qstContent" type="text">
+                </label>
+                <input type="submit" class="layui-btn layui-btn-primary x-btn" value="搜索">
+            </div>
         </form>
     </header>
     <footer>
@@ -49,8 +49,9 @@
                     <td>${questions.qstTime}</td>
                     <td>${questions.qstPhone}</td>
                     <td>
+
+                        <a href="javascript:void(0)" class="caozuo banji">编辑</a>
                         <input type="hidden" class="id" value="${questions.qid}" />
-                        <a href="#" class="caozuo">编辑</a>
                         <a href="javascript:void(0)" class="caozuo" onclick="delQues(this)">删除</a>
                     </td>
                 </tr>
@@ -61,7 +62,47 @@
         </div>
     </footer>
 </div>
+<div style="display: none" id="kuang">
+    <table  style="border-collapse:separate;border-spacing: 10px 10px;margin: 20px auto;">
+        <tr>
+            <td style="width: 80px;vertical-align: top;">反馈内容:</td>
+            <td>张先生</td>
+            <td>13810770089</td>
+        </tr>
+        <tr>
+            <td>咨询内容:</td>
+            <td colspan="2">卡拉加速度快了房间卡拉圣诞节快乐房间卡萨啊数据库来电管家昆仑决更健康的方式更好离开家圣诞快乐鼓风机离开房间多思考两个进口量的飞机上课了估计快了东方健康了就赶快来说的房间观看京东数科了</td>
+        </tr>
+        <tr>
+            <td>相关条数:</td>
+            <td colspan="2">第25.391条、第25.393条</td>
+        </tr>
+        <tr>
+            <td colspan="3" align="center">
+                <button class="layui-btn-primary x-btn-sm" style="display: block;margin: 0 auto;" id="guanbi">关闭</button>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<script src="static/layui/lay/modules/jquery-3.3.1.min.js"></script>
 <script src="static/layui/layui.js"></script>
+<script>
+    layui.use('layer',function () {
+        var layer = layui.layer;
+        $(".banji").click(function () {
+            layer.open({
+                type: 1,
+                title:'咨询内容详情',
+                area: ['450px', '300px'], //宽高
+                content: $('#kuang')
+            });
+        });
+        $("#guanbi").click(function () {
+            layer.close(layer.index);
+        });
+    })
+</script>
 <script>
     layui.use(['laypage','layer'],function () {
         var laypage = layui.laypage;
@@ -84,7 +125,7 @@
 
 
     function delQues(dom) {
-        var id=$(".id").val();
+        var id=$(dom).prev().val();
         arr=id.split(",");
         var qid=arr.join("");
         if (confirm('确认删除吗?')) {

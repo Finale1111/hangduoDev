@@ -2,7 +2,6 @@ package com.hangduo.dev1.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.hangduo.dev1.entity.Admin;
-import com.hangduo.dev1.entity.Question;
 import com.hangduo.dev1.entity.User;
 import com.hangduo.dev1.service.AdminService;
 import com.hangduo.dev1.service.MessageService;
@@ -61,7 +60,7 @@ public class SinController {
         }
         else {
             model.addAttribute("message","添加失败");
-            return "admins";
+            return "admins_old";
         }
     }
 

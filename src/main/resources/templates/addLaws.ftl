@@ -57,20 +57,20 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td>*首页法规图标:</td>
-                    <td style="position: relative;width: 400px;">
-                            <img style="width: 200px;height: 170px;border: 1px dashed #000;position: relative;" alt="asdfas" id="pic" src="" >
-                            <input style="display: none;" id="upload" type="file" name="picPath"/>
-                        <div style="position: absolute;left:300px;bottom: 0;">
-                            <p>图片格式支持：jpg/png，</p>
+                <#--<tr>-->
+                    <#--<td>*首页法规图标:</td>-->
+                    <#--<td style="position: relative;width: 400px;">-->
+                            <#--<img style="width: 200px;height: 170px;border: 1px dashed #000;position: relative;" alt="asdfas" id="pic" src="" >-->
+                            <#--<input style="display: none;" id="upload" type="file" name="picPath"/>-->
+                        <#--<div style="position: absolute;left:300px;bottom: 0;">-->
+                            <#--<p>图片格式支持：jpg/png，</p>-->
 
-                            <p>图片尺寸：90*90px</p>
+                            <#--<p>图片尺寸：90*90px</p>-->
 
-                            <p>图片大小：不超过50K</p>
-                        </div>
-                    </td>
-                </tr>
+                            <#--<p>图片大小：不超过50K</p>-->
+                        <#--</div>-->
+                    <#--</td>-->
+                <#--</tr>-->
                 <tr>
                     <td>法规PDF文件名称:</td>
                     <td><input class="layui-input x-input" type="text" name="lawPDFTitle"></td>
