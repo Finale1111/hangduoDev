@@ -9,11 +9,11 @@ public interface UserDao {
 
     User getUserByUid(int uid);
 
+    List<User> getUserByPhonea(@Param("phone") String phone);
     User getUserByPhone(@Param("phone") String phone);
-
     List<User> getUsers();
 
-    List<User> getUsersByPhone(String phone);
+    List<User> getUsersByPhone(@Param("phone") String phone);
 
     Integer updUser(User user);
 
