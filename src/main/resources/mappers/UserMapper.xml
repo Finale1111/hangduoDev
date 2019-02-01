@@ -20,10 +20,27 @@
         select * from users where user_phone = #{phone}
     </select>
 
+    <update id="updUser">
+UPDATE hangduoTest.users
+	SET
+	uid =#{uid},
+	user_name =#{userName},
+	user_phone =#{userPhone},
+	user_sex =#{userSex},
+	reg_date =#{regDate},
+	password =#{password},
+	user_type =#{userType},
+	status =#{status},
+
+	WHERE
+	uid =#{uid} ;
+    </update>
 
     <resultMap id="user" type="com.hangduo.dev1.entity.User">
         <id column="uid" property="uid"></id>
+        <result column="user_name" property="userName"></result>
         <result column="user_phone" property="userPhone"></result>
+        <result column="user_sex" property="userSex"></result>
         <result column="user_type" property="userType"></result>
         <result column="reg_date" property="regDate"></result>
         <result column="password" property="password"></result>

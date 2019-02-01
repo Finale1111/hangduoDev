@@ -6,7 +6,7 @@ import java.util.List;
 public class User {
 
     private int uid,userType,status;
-    private String userPhone,password;
+    private String userPhone,password,userName,userSex;
     private Date regDate;
     private List<Integer> collections;
     private List<Question> hisQuestions;
@@ -75,4 +75,22 @@ public class User {
     public void setHisQuestions(List<Question> hisQuestions) {
         this.hisQuestions = hisQuestions;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserSex() {
+        return userSex;
+    }
+
+    public void setUserSex(String userSex) {
+        this.userSex = userSex;
+    }
+
+
 }

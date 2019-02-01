@@ -15,13 +15,13 @@ public interface LawDao {
 
     List<Law> getLawSearch(@Param("title") String title,@Param("lawNum")int lawNum);
 
-    List<Catalog> getHeadCatalogs(String lawAlias);
+    List<Catalog> getHeadCatalogs(@Param("lawAlias") String lawAlias);
 
     List<Catalog> getNextLevelCatalogs(int cid);
 
-    List<Item> getItems(String lawAlias);
+    List<Item> getItems(@Param("lawAlias") String lawAlias);
 
-    List<Item> getItemsMuti(String lawAlias,String itemNum,String keywords);
+    List<Item> getItemsMuti(@Param("lawAlias") String lawAlias,@Param("itemNum") String itemNum,@Param("keywords") String keywords);
 
     List<Item> getItemFromCatalog(int cid);
 

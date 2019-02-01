@@ -18,6 +18,13 @@ DELETE FROM hangduoTest.messages
 
     </delete>
 
+    <select id="findMessageById" parameterType="int" resultMap="message">
+        SELECT * FROM messages
+        <where>
+            <if test="mid!=null">mid =#{mid}</if>
+        </where>
+    </select>
+
     <resultMap id="message" type="com.hangduo.dev1.entity.Message">
         <id column="mid" property="mid"></id>
         <result column="m_content" property="msgContent"></result>

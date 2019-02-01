@@ -1,6 +1,8 @@
 package com.hangduo.dev1.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
+import com.hangduo.dev1.dao.LawDao;
 import com.hangduo.dev1.entity.Catalog;
 import com.hangduo.dev1.entity.Item;
 import com.hangduo.dev1.entity.Law;
@@ -31,6 +33,9 @@ public class ItemController {
     @Resource
     QuestionService questionService;
 
+    @Resource
+    LawDao lawDao;
+
     @RequestMapping("/lawSearch")
     public String lawSearch(@RequestParam(defaultValue = "0",required = false) int lawNum,
                             @RequestParam(defaultValue = "x",required = false) String lawTitle,
@@ -43,7 +48,7 @@ public class ItemController {
     }
 
     @RequestMapping("/catalogSearch")
-    public String catalogSearch(@RequestParam(defaultValue = "CCAR-23-R3",required = false) String lawAlias,
+    public String catalogSearch(@RequestParam(defaultValue = "请选择",required = false) String lawAlias,
                                 Model model,
                                 @RequestParam(defaultValue = "1",required = false) int pageNumber,
                                 @RequestParam(defaultValue = "10",required = false) int pageSize){
@@ -95,28 +100,26 @@ public class ItemController {
 
 
     @RequestMapping("/items")
-    public String getItems(@RequestParam(defaultValue = "CCAR-23-R3",required = false) String lawAlias,
+    public String getItems(@RequestParam(defaultValue = "请选择",required = false) String lawAlias,
                            @RequestParam(defaultValue = "0",required = false) String itemNum,
                            @RequestParam(defaultValue = "x",required = false) String keywords,
                            Model model,
                            @RequestParam(defaultValue = "1",required = false) int pageNumber,
                            @RequestParam(defaultValue = "10",required = false) int pageSize){
-
         PageInfo<Item> itemPageInfo;
-        if (itemNum.equals("0")&&keywords.equals("x")){
-            itemPageInfo=lawService.getItemsFromLaw(lawAlias,pageNumber,pageSize);
 
-        }else{
-
+        itemPageInfo=lawService.getItemsFromLaw(lawAlias,pageNumber,pageSize);
+        if(!itemNum.equals("0") || !keywords.equals("x")){
             itemPageInfo=lawService.getItemsMuti(lawAlias,itemNum,keywords,pageNumber,pageSize);
         }
+
 
         model.addAttribute("items",itemPageInfo);
         List<Law> lawsList=lawService.getLawsList();
         model.addAttribute("lawsList",lawsList);
+        model.addAttribute("lawAlias",lawAlias);
         return "items";
     }
-
 
 
 
@@ -156,6 +159,14 @@ public class ItemController {
 
     @RequestMapping("/doCatalogAdd")
     public String addCatalog(Catalog catalog){
+        int supCid=catalog.getSupCid();
+        int level=0;
+        if(supCid==0){
+            level=0;
+        }
+        else{
+            level=lawDao.getCatalogByCid(supCid).getcLevel()+1;
+        }
         if (lawService.addCatalog(catalog)){
             return "redirect:/catalogSearch";
         }else{
@@ -229,34 +240,94 @@ public class ItemController {
         return resultMap;
     }
 
-    @RequestMapping("/questionsSearch")
+/*    @RequestMapping("/questionsSearch")
     public String questionsSearch(@RequestParam(defaultValue = "x",required = false) String qstPhone,
                                   @RequestParam(defaultValue = "x",required = false) String qstContent,
-                                  Model model,
+                                  Model model,HttpServletRequest request,
                                   @RequestParam(defaultValue = "1",required = false) int pageNumber,
                                   @RequestParam(defaultValue = "10",required = false) int pageSize){
         //System.out.println(qstContent+" "+qstPhone);
         PageInfo<Question> questions= questionService.searchQuestions(pageNumber,pageSize,qstContent,qstPhone);
+        if(questions==null){
+            request.getSession().setAttribute("err","没有查询结果");
+            *//*model.addAttribute("err","没有查询结果");*//*
+            System.out.print(request.getSession().getAttribute("err"));
+            return "redirect:/questionsSearch";
+
+        }
+        model.addAttribute("qstPhone",qstPhone);
+        model.addAttribute("qstContent",qstContent);
+        model.addAttribute("questions",questions);
+        return "questions";
+    }*/
+
+
+    @RequestMapping("/questionsSearch")
+    public String questionsSearch(@RequestParam(defaultValue = "x",required = false) String qstPhone,
+                                  @RequestParam(defaultValue = "x",required = false) String qstContent,
+                                  Model model,HttpServletRequest request,
+                                  @RequestParam(defaultValue = "1",required = false) int pageNumber,
+                                  @RequestParam(defaultValue = "10",required = false) int pageSize){
+        //System.out.println(qstContent+" "+qstPhone);
+        request.getSession().removeAttribute("err");
+        PageInfo<Question> questions= questionService.searchQuestions(pageNumber,pageSize,qstContent,qstPhone);
+        List<Question> list=new ArrayList<>();
+        if(!qstPhone.equals("x") || !qstContent.equals("x")){
+            list=questionService.getQuestionByPhoneandContent(qstPhone,qstContent);
+        }
+        if (list.size()==0){
+            request.getSession().setAttribute("err","没有查询结果");
+            return "redirect:/questionsSearch1";
+        }
+        model.addAttribute("qstPhone",qstPhone);
+        model.addAttribute("qstContent",qstContent);
         model.addAttribute("questions",questions);
         return "questions";
     }
 
+    @RequestMapping("/questionsSearch1")
+    public String questionsSearch1(@RequestParam(defaultValue = "x",required = false) String qstPhone,
+                                   @RequestParam(defaultValue = "x",required = false) String qstContent,
+                                   Model model,HttpServletRequest request,
+                                   @RequestParam(defaultValue = "1",required = false) int pageNumber,
+                                   @RequestParam(defaultValue = "10",required = false) int pageSize){
+        PageInfo<Question> questions= questionService.searchQuestions(pageNumber,pageSize,qstContent,qstPhone);
+        model.addAttribute("qstPhone",qstPhone);
+        model.addAttribute("qstContent",qstContent);
+        model.addAttribute("questions",questions);
+        return "questions";
+    }
+
+
     @RequestMapping("/updLawAction")
-    public String updLawAction(Law law){
+    public String updLawAction(Law law,HttpServletRequest request){
         String desOld=law.getLawDescription();
         int length=desOld.length();
         String desNew=desOld.substring(3,length-4);
         law.setLawDescription(desNew);
-        lawService.updLaw(law);
-        return "redirect:/laws";
+        boolean result=lawService.updLaw(law);
+        if(result){
+          request.getSession().setAttribute("message","编辑成功");
+            return "redirect:/laws";
+        }
+        else{
+            request.getSession().setAttribute("message","编辑失败");
+            return "updLaw";
+        }
+
     }
 
     @RequestMapping("/updItemsAction")
     public String updItemsAction(Item item){
-
         lawService.updItem(item);
-
         return "redirect:/items";
+    }
+
+    @RequestMapping("findQuestionById")
+    @ResponseBody
+    public JSON findQuestionById(@RequestParam(value ="qid",required =false)Integer qid){
+        Question question=questionService.findQuestionById(qid);
+        return (JSON) JSON.toJSON(question);
     }
 
 }

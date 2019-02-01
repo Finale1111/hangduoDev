@@ -29,7 +29,7 @@
                 <input placeholder="6-20位字符" style="width: 140px;" class="layui-input x-input" type="text" name="adminPassword" id="adminPassword">
             </label>
             <button class="layui-btn layui-btn-primary x-btn" onclick="addAdmins()">新增管理员</button>
-           <div> <#if message??>
+           <div class="textMess"> <#if message??>
                <a>${message}</a>
            </#if></div>
 
@@ -93,7 +93,10 @@
             var adminName=$("#adminName").val();
             var adminPhone=$("#adminPhone").val();
             var adminPassword=$("#adminPassword").val();
-            window.location.href="AddAdmin?adminName="+adminName+"&adminPhone="+adminPhone+"&adminPassword="+adminPassword;
+        window.location.href="AddAdmin?adminName="+adminName+"&adminPhone="+adminPhone+"&adminPassword="+adminPassword;
+
+
+
     }
 
   function delAdm(aid,dom) {

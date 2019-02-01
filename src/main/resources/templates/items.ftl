@@ -7,7 +7,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="../static/layui/css/layui.css">
     <link rel="stylesheet" href="../static/css/Xq.css">
-    <script src="../static/js/jquery-1.9.1.min.js"></script>
+    <script src="static/js/jquery-1.9.1.min.js"></script>
 </head>
 <body>
 <div class="overall">
@@ -21,7 +21,7 @@
                 <select name="lawAlias">
                     <option value="请选择" selected="selected">请选择</option>
                     <#list lawsList as law>
-                        <option value="${law.lawAlias}">${law.lawAlias}&nbsp;${law.lawTitle}</option>
+                        <option <#if lawAlias==law.lawAlias>selected="selected"</#if> value="${law.lawAlias}">${law.lawAlias}&nbsp;${law.lawTitle}</option>
                     </#list>
                 </select>
             </div>
@@ -105,7 +105,7 @@
         var id=$(dom).prev().val();
         var iid=id.replace(/,/g,'');
         // var cid=arr.join("-");
-        alert(iid);
+       // alert(iid);
         if (confirm('确认删除吗?')) {
             $.post("delItemAction",{iid:iid},function (data) {
                 if (data.result=="true") {

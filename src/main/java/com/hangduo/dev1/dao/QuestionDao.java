@@ -13,4 +13,7 @@ public interface QuestionDao {
 
 
     Integer delQuestion(@Param("qid") Integer qid);
+
+    Question getQuestionById(@Param("qid")Integer qid);
+
 }

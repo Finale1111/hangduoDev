@@ -34,11 +34,11 @@
                 <tbody>
                 <#list messages.list as message>
                 <tr>
-                    <td>${message.msgContent}</td>
+                    <td>${message.msgMini}</td>
                     <td>${message.msgTime}</td>
                     <td>
 
-                        <a href="#" class="caozuo chakan">查看</a>
+                        <a href="#" class="caozuo chakan" onclick="searchMess(this)">查看</a>
                         <input type="hidden" value="${message.mid}" class="id" >
                         <a href="javascript:void(0)" class="caozuo" onclick="delMessa(this)">删除</ a>
                     </td>
@@ -55,7 +55,9 @@
     <table style="margin: 20px auto;">
         <tr>
             <td style="width: 80px;vertical-align: top;">反馈内容:</td>
-            <td>阿里空间打开了房间卡拉双击打开老规矩昆仑决奥斯卡了进口量的高房价昆仑决现在看来就赶快来就撒点开链接付款了吉林省卡德加功课了阿拉斯加的风口浪尖挨谁坑来电管家</td>
+            <td style="vertical-align: top;width: 450px;height: 250px">
+                <p id="fkContent"></p>
+              <#--  <input class="layui-input x-input" type="text" id="fkContent"></td>-->
         </tr>
     </table>
     <button class="layui-btn-primary x-btn-sm" style="display: block;margin: 0 auto;" id="guanbi">关闭</button>
@@ -65,16 +67,17 @@
 <script src="static/layui/layui.js"></script>
 
 <script>
+
     layui.use('layer',function () {
         var layer = layui.layer;
-        $(".chakan").click(function () {
+ /*       $(".chakan").click(function () {
             layer.open({
                 type: 1,
                 title:'意见反馈内容详情',
-                area: ['420px', '240px'], //宽高
+                area: ['600px', '400px'], //宽高
                 content: $('#kuang')
             });
-        });
+        });*/
         $("#guanbi").click(function () {
             layer.close(layer.index);
         });
@@ -94,7 +97,7 @@
                 ,count: total
                 ,curr:${messages.pageNum}
                 ,limit:${messages.pageSize}
-                ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                ,layout: ['count', 'prev', 'page', 'next', 'skip']
                 ,jump: function(obj,first){
                     if(!first){
                         window.location="messages?pageNumber="+obj.curr;
@@ -119,6 +122,23 @@
             }, "json");
         }
     }
+
+    function searchMess(dom){
+        var id=$(dom).next().val();
+        arr=id.split(",");
+        var mid=arr.join("");
+      $.post("getMessageById","mid="+mid,function (data){
+
+                  layer.open({
+                    type: 1,
+                    title:'意见反馈内容详情',
+                    area: ['600px', '400px'], //宽高
+                    content: $('#kuang')
+                });
+             $("#fkContent").text(data.msgContent);
+        },"json");
+    }
+
 </script>
 </body>
 </html>

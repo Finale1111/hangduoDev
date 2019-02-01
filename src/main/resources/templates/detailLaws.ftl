@@ -48,7 +48,7 @@
 <body>
 <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-    <h1 id="title" class="mui-title">${law.lawNum}部</h1>
+    <h1 id="title" class="mui-title">${laws.lawsPart}部</h1>
     <a class="mui-icon mui-icon-more mui-pull-right"></a>
 </header>
 <div class="mui-content">
@@ -67,79 +67,36 @@
         <div class="web_qr_login" id="web_qr_login" style="display: block;">
 
             <!--法规目录-->
-
-            <#list catalogs as catalog>
-                <#if catalog.cLevel=0>
+            <#list lawsList as catalog>
+                <#if (catalog.cateGrade==1)>
                     <div class="bufen">
-                        <div class="bufen-title"><strong>${catalog.catalogContent}</strong></div>
-                        <#--<div>总则</div>-->
+                        <div class="bufen-title"><strong>${catalog.cateText}</strong></div>
                     </div>
-                    <#if (catalog.items)??>
-                        <ul>
-                            <#list catalog.items as item>
-                                <li class="x-content-div">
-                                    <a href="detailCatalog" target="_parent">
-                                        <div><strong>第${item.itemNum}条</strong></div>
-                                        <div>${item.itemTitle}</div>
-                                        <div><span class="mui-icon mui-icon-arrowright"></span></div>
-                                    </a>
-                                </li>
-                            </#list>
-                        </ul>
-                    </#if>
-
-                <#elseif catalog.cLevel=1>
-                    <div class="bufen">
-                        <div class="bufen-title">${catalog.catalogContent}</div>
-                    <#--<div>总则</div>-->
-                    </div>
-                    <#if (catalog.items)??>
-                        <ul>
-                            <#list catalog.items as item>
-                                <li class="x-content-div">
-                                    <a href="detailCatalog" target="_parent">
-                                        <div><strong>第${item.itemNum}条</strong></div>
-                                        <div>${item.itemTitle}</div>
-                                        <div><span class="mui-icon mui-icon-arrowright"></span></div>
-                                    </a>
-                                </li>
-                            </#list>
-                        </ul>
-                    </#if>
                 <#else>
-                    <div class="bufen">
-                        <div class="bufen-title">--${catalog.catalogContent}</div>
-                    <#--<div>总则</div>-->
-                    </div>
-                    <#if (catalog.items)??>
+                    <div class="x-content">
                         <ul>
-                            <#list catalog.items as item>
-                                <li class="x-content-div">
-                                    <a href="detailCatalog" target="_parent">
-                                        <div><strong>第${item.itemNum}条</strong></div>
-                                        <div>${item.itemTitle}</div>
-                                        <div><span class="mui-icon mui-icon-arrowright"></span></div>
-                                    </a>
-                                </li>
-                            </#list>
+                            <li class="x-content-div">
+                                <a href="detailCatalogPhone?catalogId=${catalog.catalogId}" target="_parent">
+                                    <div><strong>${catalog.cateText}</strong></div>
+                                    <div></div>
+                                    <div><span class="mui-icon mui-icon-arrowright"></span></div>
+                                </a>
+                            </li>
                         </ul>
-                    </#if>
+                    </div>
                 </#if>
-
             </#list>
-                </div>
-
             </div>
 
         <!--注册-->
         <div class="qlogin" id="qlogin" style="display: none; height: 235px;background-color: #fff;padding: 5px;">
 
             <div style="padding-top: 10px;">
-                <h4 style="display: inline-block;color: #007aff;">第25部</h4>
-                <strong>运输类飞机适航标准</strong>
+                <h4 style="display: inline-block;color: #007aff;">第${laws.lawsPart}部</h4>
+                <strong>${laws.lawsName}</strong>
             </div>
             <div style="padding-top: 5px;font-size: 14px;">
-                <span>   法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明法规版本说明</span>
+                <span>${laws.lawsState}</span>
             </div>
 
         </div>
@@ -154,7 +111,6 @@
 
 <script src="../static/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="../static/js/login.js"></script>
-<script src="../static/js/mui.min.js"></script>
 <script>
     mui.init({
         swipeBack:true //启用右滑关闭功能

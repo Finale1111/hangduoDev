@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="../static/layui/css/layui.css">
-    <link rel="stylesheet" href="../static/css/Xq.css">
-    <script src="../static/js/jquery-1.9.1.min.js"></script>
+    <link rel="stylesheet" href="static/layui/css/layui.css">
+    <link rel="stylesheet" href="static/css/Xq.css">
+    <script src="static/js/jquery-1.9.1.min.js"></script>
 </head>
 <body>
 <div class="overall">
@@ -24,7 +24,7 @@
                                 <select id="lawAlias" name="quiz">
                                     <option value="请选择" selected="selected">请选择</option>
                                     <#list lawsList as law>
-                                        <option value="${law.lawAlias}">${law.lawAlias}&nbsp;${law.lawTitle}</option>
+                                        <option <#if lawAlias==law.lawAlias>selected="selected"</#if> value="${law.lawAlias}">${law.lawAlias}&nbsp;${law.lawTitle}</option>
                                     </#list>
                                 </select>
                             </div>

@@ -41,6 +41,11 @@ public class UserServiceImpl implements UserService {
 
         return users;
     }
+
+    @Override
+    public boolean UpdUser(User user) {
+        return userDao.updUser(user)>0?true:false;
+    }
 }
 
 

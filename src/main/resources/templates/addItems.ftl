@@ -50,19 +50,19 @@
                 </tr>
                 <tr>
                     <td>*条款编号:</td>
-                    <td><input class="layui-input x-input" type="text" name="itemNum"></td>
+                    <td><input class="layui-input x-input" type="text" name="itemNum" id="itemNum"></td>
                 </tr>
                 <tr>
                     <td>*条款编号别名:</td>
-                    <td><input class="layui-input x-input" type="text" name="itemAlias"></td>
+                    <td><input class="layui-input x-input" type="text" name="itemAlias" id="itemAlias"></td>
                 </tr>
                 <tr>
                     <td>条款版本号:</td>
-                    <td><input class="layui-input x-input" type="text" name="version"></td>
+                    <td><input class="layui-input x-input" type="text" name="version" id="version"></td>
                 </tr>
                 <tr>
                     <td>*条款标题:</td>
-                    <td><input class="layui-input x-input" type="text" name="itemTitle"></td>
+                    <td><input class="layui-input x-input" type="text" name="itemTitle" id="itemTitle"></td>
                 </tr>
                 <tr>
                     <td>*条款内容:</td>
@@ -74,7 +74,7 @@
                 </tr>
                 <tr>
                     <td>关键词:</td>
-                    <td><input class="layui-input x-input" type="text" name="keywords"></td>
+                    <td><input class="layui-input x-input" type="text" name="keywords" id="keywords"></td>
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: center;">
@@ -121,6 +121,56 @@
             },"json");
 
         })
+    })
+
+
+    $("form").submit(function(){
+        var ajaxLaws=$("#ajaxLaws").val();
+        var fulei=$("#fulei").val();
+        var itemNum=$("#itemNum").val();
+        var itemAlias=$("#itemAlias").val();
+        var version=$("#version").val();
+        var itemTitle=$("#itemTitle").val();
+        var itemContent =$("#froala-editor").val();
+        var keywords=$("#keywords").val();
+        if(ajaxLaws=="请选择"){
+            alert("请选择法规");
+            return false;
+        }
+        if(fulei=="请选择"){
+            alert("请选择所在目录");
+            return false;
+        }
+        if(itemNum==null || itemNum==""){
+            alert("条款编号不能为空");
+            return false;
+        }
+        var re = /^\d+(?=\.{0,1}\d+$|$)/
+        if (!re.test(itemNum)) {
+            alert("条款编号内仅限输入数字和小数点");
+            return false;
+        }
+
+            if(itemAlias==null || itemAlias==""){
+            alert("条款编号别名不能为空");
+            return false;
+        }
+        if(version==null || version==""){
+            alert("条款版本号不能为空");
+            return false;
+        }
+        if(itemTitle==null || itemTitle==""){
+            alert("条款标题不能为空");
+            return false;
+        }
+        if(itemContent==null || itemContent==""){
+            alert("条款内容不能为空");
+            return false;
+        }
+        if(keywords==null || keywords==""){
+            alert("关键字不能为空");
+            return false;
+        }
     })
 </script>
 

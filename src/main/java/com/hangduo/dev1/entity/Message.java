@@ -1,12 +1,13 @@
 package com.hangduo.dev1.entity;
 
-import java.sql.Date;
+
+import java.sql.Timestamp;
 
 public class Message {
 
     private int mid,uid,status;
-    private String msgContent;
-    private Date msgTime;
+    private String msgContent,msgMini;
+    private Timestamp msgTime;
 
     public int getMid() {
         return mid;
@@ -40,12 +41,20 @@ public class Message {
         this.msgContent = msgContent;
     }
 
-    public Date getMsgTime() {
+    public Timestamp getMsgTime() {
         return msgTime;
     }
 
-    public void setMsgTime(Date msgTime) {
+    public void setMsgTime(Timestamp msgTime) {
         this.msgTime = msgTime;
+    }
+
+    public String getMsgMini() {
+        return msgMini;
+    }
+
+    public void setMsgMini(String msgMini) {
+        this.msgMini = msgMini;
     }
 }
 

@@ -3,8 +3,9 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title></title>
-    <link rel="stylesheet" href="../static/layui/css/layui.css">
-    <link rel="stylesheet" href="../static/css/Xq.css">
+    <link rel="stylesheet" href="static/layui/css/layui.css">
+    <link rel="stylesheet" href="static/css/Xq.css">
+    <script src="static/js/jquery-1.9.1.min.js"></script>
 
 </head>
 <body>
@@ -20,11 +21,11 @@
             <table class="biaodan" style="border-collapse:separate; border-spacing:0px 50px;" >
                 <tr>
                     <td style="width: 300px;">*目录名称:</td>
-                    <td><input class="layui-input x-input" type="text" name="catalogContent"></td>
+                    <td><input class="layui-input x-input" type="text" name="catalogContent" id="catalogContent"></td>
                 </tr>
                 <tr>
                     <td>统计目录排序:</td>
-                    <td><input class="layui-input x-input" type="text" name="cIndex"></td>
+                    <td><input class="layui-input x-input" type="text" name="cIndex" id="cIndex"></td>
                 </tr>
                 <tr>
                     <td>选择所属法规:</td>
@@ -43,8 +44,9 @@
                     <td>*选择父级目录:</td>
                     <td class="layui-form">
                         <div class="layui-input-inline x-select">
-                            <select name="supCid" id="fulei" lay-filter="fuji">
-                                <option value="0">请选择</option>
+                            <select name="supCid"  id="fulei" lay-filter="fuji">
+                                <option value="1113">请选择</option>
+                                <option value="0">顶级目录</option>
                             </select>
                         </div>
                     </td>
@@ -60,10 +62,10 @@
 
     </footer>
 </div>
-<script src="../static/layui/lay/modules/jquery-3.3.1.min.js"></script>
-<script src="../static/layui/layui.js"></script>
-<script src="../static/layui/layui.all.js"></script>
-<script src="../static/layui/layui.js"></script>
+<script src="static/layui/lay/modules/jquery-3.3.1.min.js"></script>
+<script src="static/layui/layui.js"></script>
+<script src="static/layui/layui.all.js"></script>
+<script src="static/layui/layui.js"></script>
 <script>
     //Demo
     layui.use('form', function() {
@@ -85,6 +87,35 @@
             },"json");
 
         })
+    })
+
+
+    $("form").submit(function(){
+        var catalogContent=$("#catalogContent").val();
+        var cIndex=$("#cIndex").val();
+        var lawAlias=$("#ajaxLaws").val();
+        var fulei=$("#fulei").val();
+
+        if(catalogContent==null ||catalogContent==""){
+            alert("目录名称不能为空");
+            return false;
+        }
+
+        if(cIndex==null || cIndex==""){
+            alert("统计目录排序不能为空");
+            return false;
+        }
+
+        if(lawAlias=="请选择"){
+        alert("请选择所属法规");
+        return false;
+        }
+
+        if(fulei=="请选择"){
+            alert("请选择父级目录");
+            return false;
+        }
+
     })
 </script>
 

@@ -44,4 +44,14 @@ public class AdminServiceImpl implements AdminService {
         }
 
     }
+
+    @Override
+    public Admin findAdminById(Integer aid) {
+        return adminDao.getAdminByID(aid);
+    }
+
+    @Override
+    public boolean UpdAdmin(Admin admin) {
+        return adminDao.updAdmin(admin)>0?true:false;
+    }
 }

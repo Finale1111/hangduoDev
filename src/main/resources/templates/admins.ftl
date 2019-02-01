@@ -53,7 +53,8 @@
                 <td>${admin.adminName}</td>
                 <td>${admin.regDate}</td>
                 <td>
-                    <a href="javascript:void(0)" class="caozuo bianji">编辑</a>
+                    <a href="javascript:void(0)" class="caozuo bianji" onclick="bianji(${admin.aid})">编辑</a>
+                    <input type="hidden" value="${admin.aid}" >
                     <a href="javascript:void(0)" class="caozuo" onclick="delAdm(${admin.aid},this)">删除</a>
                 </td>
             </tr>
@@ -66,46 +67,64 @@
 </footer>
 </div>
 <div style="display: none" id="kuang">
-    <form action="">
         <table style="border-collapse:separate;border-spacing: 10px 10px;margin: 0 auto;">
             <tr>
                 <td style="text-align: right;">*手机号</td>
-                <td>13810770036</td>
+                <td> <input class="layui-input x-input" type="text" id="glyPhone"></td>
             </tr>
             <tr>
                 <td style="text-align: right;">*管理员姓名</td>
                 <td>
-                    <input class="layui-input x-input" type="text">
+                    <input class="layui-input x-input" type="text" id="glyName">
                 </td>
             </tr>
             <tr>
                 <td style="text-align: right;">*密码</td>
                 <td>
-                    <input class="layui-input x-input" type="password">
+                    <input class="layui-input x-input" id="password" type="password">
                 </td>
             </tr>
             <tr>
                 <td colspan="2" align="center">
-                    <input class="layui-btn-primary x-btn-sm" style="margin-left: 50px;" type="submit" value="保存">
+                    <input class="layui-btn-primary x-btn-sm" style="margin-left: 50px;" type="submit" value="保存" onclick="updAdm()">
+                    <input type="hidden"  >
                     <button class="layui-btn-primary x-btn-sm" style="margin-left: 50px;" id="guanbi">关闭</button>
                 </td>
             </tr>
         </table>
-    </form>
+
 </div>
-<script src="../static/js/jquery-3.3.1.min.js"></script>
-<script src="../static/layui/layui.js"></script>
+<script src="static/js/jquery-3.3.1.min.js"></script>
+<script src="static/layui/layui.js"></script>
 <script>
     layui.use('layer',function () {
         var layer = layui.layer;
-        $(".bianji").click(function () {
-            layer.open({
-                type: 1,
-                title:'编辑信息',
-                area: ['420px', '240px'], //宽高
-                content: $('#kuang')
-            });
-        });
+      /*  $(".bianji").click(function () {
+          var aid=$(".aid").val();
+          $.post("adminById","aid="+aid,function(data){
+              layer.open({
+                  type: 1,
+                  title:'编辑信息',
+                  area: ['420px', '240px'], //宽高
+                  content: $('#kuang')
+              });
+              $("#glyName").val(data.adminName);
+          },"json")
+
+
+       /*     var glyName=$("#glyName").val();
+          var password=$("#password").val();
+            $.post("updAdmin","aid="+aid+"&glyName="+glyName+"&password="+password,function (data) {
+                  if(data.message=="true"){
+                      alert("管理员密码修改成功");
+                      window.location.href="admins";
+                  }
+                  else{
+                      alert("管理员密码修改失败");
+                  }
+            },"json")
+
+        });*/
         $("#guanbi").click(function () {
             layer.close(layer.index);
         });
@@ -121,7 +140,7 @@
             ,count: total
             ,curr:${admins.pageNum}
             ,limit:${admins.pageSize}
-            ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+            ,layout: ['count', 'prev', 'page', 'next','skip']
             ,jump: function(obj,first){
                 if (!first){
                     //alert(JSON.stringify(obj));
@@ -138,9 +157,69 @@
         var adminName=$("#adminName").val();
         var adminPhone=$("#adminPhone").val();
         var adminPassword=$("#adminPassword").val();
-        window.location.href="AddAdmin?adminName="+adminName+"&adminPhone="+adminPhone+"&adminPassword="+adminPassword;
+             if(adminName==null || adminName==""){
+            alert("管理员姓名不能为空");
+            return false;
+        }
+        if(adminPhone==null || adminPhone==""){
+            alert("手机号不能为空");
+            return false;
+        }
+        if(!(/^1[34578]\d{9}$/.test(adminPhone))){
+            alert("手机号码格式有误，请重填");
+            return false;
+        }
+        if(adminPassword==null || adminPassword==""){
+            alert("密码不能为空");
+            return false;
+        }
+        var reg = /[a-zA-Z0-9\W_]{6,}/;
+        if(!reg.test(adminPassword)){
+            alert("密码长度至少6位");
+            return false;
+        }
+        $.post("AddAdmin","adminName="+adminName+"&adminPhone="+adminPhone+"&adminPassword="+adminPassword,function(data){
+            if(data.result=="true"){
+                alert("管理员添加成功");
+                window.location.href="/admins";
+            }
+            else{
+                alert("管理员添加失败");
+            }
+        },"json")
+     //   window.location.href="AddAdmin?adminName="+adminName+"&adminPhone="+adminPhone+"&adminPassword="+adminPassword;
     }
 
+
+    function bianji(aid) {
+        $.post("adminById","aid="+aid,function(data){
+            layer.open({
+                type: 1,
+                title:'编辑信息',
+                area: ['420px', '240px'], //宽高
+                content: $('#kuang')
+            });
+            $("#glyName").val(data.adminName);
+            $("#glyPhone").val(data.adminPhone);
+        },"json")
+    }
+
+
+    function updAdm(){
+        var glyPhone=$("#glyPhone").val();
+        var glyName=$("#glyName").val();
+        var password=$("#password").val();
+        $.post("updAdmin","glyPhone="+glyPhone+"&glyName="+glyName+"&password="+password,function(data){
+            if(data.message=="true"){
+                alert("管理员密码修改成功");
+                window.location.href="admins";
+            }
+            else{
+                alert("管理员密码修改失败");
+            }
+        },"json")
+
+    }
     function delAdm(aid,dom) {
         if (confirm('确认删除吗?')) {
             $.post("delAdmins", {aid:aid}, function (data) {
@@ -154,6 +233,8 @@
             }, "json");
         }
     }
+
+
 </script>
 </body>
 </html>

@@ -74,7 +74,11 @@
                 <div id="page" class="fenye"></div>
             </div>
         </footer>
+
     </div>
+     <#if message??>
+        <input type="hidden" id="mess" value="${message}">
+     </#if>
     <script src="static/layui/layui.js"></script>
 
     <script>
@@ -97,6 +101,11 @@
             });
         })
 
+        $(function(){
+            if($("#mess").val()!=undefined){
+                alert($("#mess").val());
+            }
+        })
         function toAddLaws() {
             window.location.href="addLaws";
         }

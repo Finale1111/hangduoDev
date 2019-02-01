@@ -19,13 +19,13 @@
             <div class="content">
                 <label class="ziti">
                     联系方式:
-                    <input placeholder="手机号" name="qstPhone" class="layui-input x-input" type="text">
+                    <input placeholder="手机号" name="qstPhone" id="phone" class="layui-input x-input" value="<#if qstPhone??&&qstPhone!="x" >${qstPhone}</#if>" type="text">
                 </label>
                 <label class="ziti">
                     咨询内容:
-                    <input class="layui-input x-input" name="qstContent" type="text">
+                    <input class="layui-input x-input" name="qstContent" value="<#if qstContent??&&qstContent!="x" >${qstContent}</#if>" type="text">
                 </label>
-                <input type="submit" class="layui-btn layui-btn-primary x-btn" value="搜索">
+                <input type="submit" id="search" class="layui-btn layui-btn-primary x-btn" value="搜索">
             </div>
         </form>
     </header>
@@ -50,14 +50,18 @@
                     <td>${questions.qstPhone}</td>
                     <td>
 
-                        <a href="javascript:void(0)" class="caozuo banji">编辑</a>
+                        <a href="javascript:void(0)" class="caozuo banji" onclick="searchQuestion(this)">查看</a>
                         <input type="hidden" class="id" value="${questions.qid}" />
                         <a href="javascript:void(0)" class="caozuo" onclick="delQues(this)">删除</a>
                     </td>
                 </tr>
                 </#list>
+                <#if err?? >
+    <input type="hidden" id="err" value="${err}" >
+                </#if>
                 </tbody>
             </table>
+
             <div id="page" class="fenye"></div>
         </div>
     </footer>
@@ -66,12 +70,16 @@
     <table  style="border-collapse:separate;border-spacing: 10px 10px;margin: 20px auto;">
         <tr>
             <td style="width: 80px;vertical-align: top;">反馈内容:</td>
-            <td>张先生</td>
-            <td>13810770089</td>
+            <td><p id="qstName"></p></td>
+            <td><p id="qstPhone"></p></td>
         </tr>
         <tr>
             <td>咨询内容:</td>
-            <td colspan="2">卡拉加速度快了房间卡拉圣诞节快乐房间卡萨啊数据库来电管家昆仑决更健康的方式更好离开家圣诞快乐鼓风机离开房间多思考两个进口量的飞机上课了估计快了东方健康了就赶快来说的房间观看京东数科了</td>
+            <td colspan="2">
+                <p id="qstContent"></p>
+                <#--卡拉加速度快了房间卡拉圣诞节快乐房间卡萨啊数据库来电管家昆仑决更
+                健康的方式更好离开家圣诞快乐鼓风机离开房间多思考两个进口量的飞机上课了估计快了东方健康了就赶快来说的房间观看京东数科了-->
+            </td>
         </tr>
         <tr>
             <td>相关条数:</td>
@@ -88,16 +96,24 @@
 <script src="static/layui/lay/modules/jquery-3.3.1.min.js"></script>
 <script src="static/layui/layui.js"></script>
 <script>
+
+    $(function(){
+        if($("#err").val()!=undefined){
+            alert($("#err").val());
+        }
+    })
+
+
     layui.use('layer',function () {
         var layer = layui.layer;
-        $(".banji").click(function () {
+   /*     $(".banji").click(function () {
             layer.open({
                 type: 1,
                 title:'咨询内容详情',
                 area: ['450px', '300px'], //宽高
                 content: $('#kuang')
             });
-        });
+        });*/
         $("#guanbi").click(function () {
             layer.close(layer.index);
         });
@@ -141,6 +157,24 @@
             }, "json");
         }
     }
+
+    function searchQuestion(dom){
+        var id=$(dom).next().val();
+        arr=id.split(",");
+        var qid=arr.join("");
+        $.post("findQuestionById","qid="+qid,function (data) {
+            layer.open({
+                type: 1,
+                title:'咨询内容详情',
+                area: ['600px', '350px'], //宽高
+                content: $('#kuang')
+            });
+            $("#qstName").text(data.qstName);
+            $("#qstPhone").text(data.qstPhone);
+            $("#qstContent").text(data.qstContent);
+        },"json")
+    }
+
 </script>
 </body>
 </html>

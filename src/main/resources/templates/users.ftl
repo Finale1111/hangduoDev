@@ -7,6 +7,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="static/layui/css/layui.css">
     <link rel="stylesheet" href="static/css/Xq.css">
+    <script src="static/js/jquery-1.9.1.min.js"></script>
 </head>
 <body>
 <div class="overall">
@@ -28,7 +29,9 @@
             <table class="layui-table" style="word-break:break-all; word-wrap: break-word">
                 <thead>
                 <tr>
+                    <th>姓名</th>
                     <th>手机号</th>
+                    <th>性别</th>
                     <th>会员类型</th>
                     <th>注册日期</th>
                 </tr>
@@ -36,11 +39,21 @@
                 <tbody>
                 <#list users.list as user>
                     <tr>
+                        <td>${user.userName}</td>
                         <td>${user.userPhone}</td>
+                        <td>${user.userSex}</td>
                         <td class="layui-form">
                             <div class="layui-input-block" style="margin-left: 0px">
-                                <input type="radio" value="0" title="免费" checked>
-                                <input type="radio" value="1" title="付费">
+                                <input type="radio" class="cb-radio" value="0" title="免费" checked>
+                                <input type="radio" class="cb-radio" value="1" title="付费">
+                                <#--<input type="radio" class="cb-radio" id="r1" name="rd" value="left"/>
+
+                                <input type="radio" class="cb-radio cb-gap2" id="r2" name="rd" value="right"/>
+
+                                <button id="btn" type="radio" class="btn btn-primary cb-gap">免费</button>
+
+                                <button id="btn2" type="radio" class="btn btn-primary cb-gap">付费</button>-->
+
                             </div>
                         </td>
                         <td>${user.regDate}</td>
@@ -75,6 +88,23 @@
             }
         });
     })
+    $(function () {
+        $(".layui-anim").click(function () {
+            alert(1);
+        });
+    });
+
+    //var radios = $(".cb-radio");
+/* function btn1(){
+        $(".cb-radio").eq(0).attr("checked", true);
+        $(".cb-radio").eq(1).attr("checked", false);
+        alert("修改此用户为免费用户");
+    }
+    function btn2(){
+        $(".cb-radio").eq(0).attr("checked", false);
+        $(".cb-radio").eq(1).attr("checked", true);
+        alert("修改此用户为付费用户");
+    }*/
 </script>
 </body>
 </html>

@@ -7,4 +7,5 @@ public interface MessageService {
 
     PageInfo<Message> getMessage(int pageNum, int pageSize);
    boolean delMessages(Integer mid);
+   Message findMessageById(Integer mid);
 }

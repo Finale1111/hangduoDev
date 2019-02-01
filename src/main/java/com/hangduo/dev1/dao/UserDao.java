@@ -14,5 +14,6 @@ public interface UserDao {
 
     List<User> getUsersByPhone(String phone);
 
+    Integer updUser(User user);
 
 }

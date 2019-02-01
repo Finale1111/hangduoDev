@@ -12,6 +12,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="../static/layui/css/layui.css">
     <link rel="stylesheet" href="../static/css/Xq.css">
+    <script src="static/js/jquery-1.9.1.min.js"></script>
     <style>
         #pic {
             width: 100px;
@@ -34,26 +35,26 @@
             <table class="biaodan" cellspacing="10px">
                 <tr>
                     <td style="width: 300px;">*法规部号:</td>
-                    <td><input class="layui-input x-input" type="text" name="lawNum"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawNum" id="lawNum"></td>
                 </tr>
                 <tr>
                     <td>法规号别名:</td>
-                    <td><input class="layui-input x-input" type="text" name="lawAlias"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawAlias" id="lawAlias"></td>
                 </tr>
                 <tr>
                     <td>法规版本号:</td>
-                    <td><input class="layui-input x-input" type="text" name="lawVersion"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawVersion" id="lawVersion"></td>
                 </tr>
                 <tr>
                     <td>*法规名称:</td>
-                    <td><input class="layui-input x-input" type="text" name="lawTitle"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawTitle" id="lawTitle"></td>
                 </tr>
                 <tr>
                     <td>*是否显示:</td>
                     <td class="layui-form">
                         <div class="layui-input-block" style="margin-left: 0px">
                             <input type="radio" name="showStatus" value="1" title="显示">
-                            <input type="radio" name="showStatus" value="0" title="不显示">
+                            <input type="radio" name="showStatus" value="0" title="不显示" checked>
                         </div>
                     </td>
                 </tr>
@@ -73,11 +74,11 @@
                 <#--</tr>-->
                 <tr>
                     <td>法规PDF文件名称:</td>
-                    <td><input class="layui-input x-input" type="text" name="lawPDFTitle"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawPDFTitle" id="lawPDFTitle"></td>
                 </tr>
                 <tr>
                     <td>法规PDF文件下载链接:</td>
-                    <td><input class="layui-input x-input" type="text" name="lawDownloadLink"></td>
+                    <td><input class="layui-input x-input" type="text" name="lawDownloadLink" id="lawDownloadLink"></td>
                 </tr>
                 <tr>
                 <td style="vertical-align: top;">*法规版本说明:</td>
@@ -132,6 +133,56 @@
             });
         });
     });
+
+
+    $("form").submit(function(){
+
+        var lawAlias=$("#lawAlias").val();
+        var lawNum=$("#lawNum").val();
+        var lawVersion=$("#lawVersion").val();
+        var lawTitle=$("#lawTitle").val();
+        var lawPDFTitle=$("#lawPDFTitle").val();
+        var lawDownloadLink=$("#lawDownloadLink").val();
+        var lawDescription=$("#froala-editor").val();
+        if(lawAlias==null || lawAlias==""){
+            alert("法规号别名不能为空");
+            return false;
+        }
+        if(lawNum==null || lawNum==""){
+            alert("法规部号不能为空");
+            return false;
+        }
+
+        var reg=/^[0-9]*$/
+        if(!reg.test(lawNum)){
+            alert("请在法规部号输入框内输入数字");
+            return false;
+        }
+
+        if(lawVersion==null||lawVersion==""){
+            alert("法规版本号不能为空");
+            return false;
+        }
+        if(lawTitle==null||lawTitle==""){
+            alert("法规名称不能为空");
+            return false;
+        }
+
+
+        if(lawPDFTitle==null||lawPDFTitle==""){
+            alert("法规PDF文件名称不能为空");
+            return false;
+        }
+
+        if(lawDownloadLink==null||lawDownloadLink==""){
+            alert("法规PDF文件下载链接不能为空");
+            return false;
+        }
+        if(lawDescription==null||lawDescription==""){
+            alert("法规版本说明不能为空");
+            return false;
+        }
+    })
 </script>
 
 </body>

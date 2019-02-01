@@ -35,7 +35,27 @@ INSERT INTO hangduoTest.admin
 	aid =#{aid};
     </delete>
 
+<select id="getAdminByID" parameterType="int" resultMap="admin">
+SELECT * FROM admin
+<where>
+	<if test="aid!=null">aid=#{aid}</if>
+</where>
+</select>
 
+	<update id="updAdmin">
+       UPDATE hangduoTest.admin
+<set>
+	<if test="aid!=null">aid=#{aid},</if>
+    <if test="adminPhone!=null">adm_phone=#{adminPhone},</if>
+	<if test="adminName!=null and adminName!=''">adm_name=#{adminName},</if>
+	<if test="password!=null and password!=''">password=#{password},</if>
+	<if test="regDate!=null">reg_date=#{regDate},</if>
+	<if test="status!=null">status=#{status},</if>
+</set>
+		<where>
+			<if test="aid!=null">aid=#{aid}</if>
+		</where>
+	</update>
 
     <resultMap id="admin" type="com.hangduo.dev1.entity.Admin">
         <id column="aid" property="aid"></id>

@@ -20,7 +20,17 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public PageInfo<Message> getMessage(int pageNum, int pageSize){
         PageHelper.startPage(pageNum,pageSize);
+
         List<Message> messageList =messageDao.getMessage();
+        for(Message m:messageList){
+            if(m.getMsgContent().length()>7){
+                String msgMini=m.getMsgContent().substring(0,5)+"...";
+                m.setMsgMini(msgMini);
+            }
+            else{
+                m.setMsgMini(m.getMsgContent());
+            }
+        }
         PageInfo<Message> messages=new PageInfo<>(messageList);
         return messages;
     }
@@ -32,5 +42,10 @@ public class MessageServiceImpl implements MessageService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Message findMessageById(Integer mid) {
+        return messageDao.findMessageById(mid);
     }
 }

@@ -10,4 +10,7 @@ public interface AdminService {
     boolean AddAdmins(Admin admin);
 
     boolean DelAdmin(Integer aid);
+
+    Admin findAdminById(Integer aid);
+    boolean UpdAdmin(Admin admin);
 }

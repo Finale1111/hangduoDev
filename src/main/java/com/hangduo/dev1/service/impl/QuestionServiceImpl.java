@@ -47,4 +47,14 @@ public class QuestionServiceImpl implements QuestionService {
             return false;
         }
     }
+
+    @Override
+    public Question findQuestionById(Integer qid) {
+        return questionDao.getQuestionById(qid);
+    }
+    @Override
+    public List<Question> getQuestionByPhoneandContent(String qstPhone, String qstContent) {
+        return questionDao.getQuestionByPhoneandContent(qstPhone,qstContent);
+    }
+
 }
