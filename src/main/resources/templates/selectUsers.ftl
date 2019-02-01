@@ -7,6 +7,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="static/layui/css/layui.css">
     <link rel="stylesheet" href="static/css/Xq.css">
+    <script src="static/js/jquery-1.9.1.min.js"></script>
 </head>
 <body>
 <div class="overall">
@@ -46,7 +47,9 @@
                         <td>${user.regDate}</td>
                     </tr>
                 </#list>
-
+<#if aaa?? >
+   <input type="hidden" id="aaa" value="${aaa}" >
+</#if>
                 </tbody>
             </table>
             <div id="page" class="fenye"></div>
@@ -55,6 +58,7 @@
 </div>
 <script src="static/layui/layui.js"></script>
 <script>
+
     layui.use('form',function () {
         var form = layui.form;
     })
@@ -74,6 +78,12 @@
                 }
             }
         });
+    })
+
+    $(function(){
+        if($("#aaa").val()!=undefined){
+            alert($("#aaa").val());
+        }
     })
 </script>
 </body>

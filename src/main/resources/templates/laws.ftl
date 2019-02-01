@@ -19,11 +19,11 @@
                 <form action="/lawSearch" method="post">
                     <label class="ziti">
                         *法规编号:
-                        <input name="lawNum" class="layui-input x-input" type="text">
+                        <input name="lawNum" class="layui-input x-input" value="<#if lawNum??&&lawNum!=0 >${lawNum}</#if>" type="text">
                     </label>
                     <label class="ziti">
                         *法规名称:
-                        <input name="lawTitle" class="layui-input x-input" type="text">
+                        <input name="lawTitle" class="layui-input x-input" value="<#if lawTitle??&&lawTitle!="x" >${lawTitle}</#if>" type="text">
                     </label>
                     <input type="submit" class="layui-btn layui-btn-primary x-btn" value="搜索"/>
                 </form>
@@ -79,6 +79,10 @@
      <#if message??>
         <input type="hidden" id="mess" value="${message}">
      </#if>
+
+   <#if ccc?? >
+<input type="hidden" id="ccc" value="${ccc}" >
+    </#if>
     <script src="static/layui/layui.js"></script>
 
     <script>
@@ -102,10 +106,16 @@
         })
 
         $(function(){
+
+            if($("#ccc").val()!=undefined){
+                alert($("#ccc").val());
+            }
             if($("#mess").val()!=undefined){
                 alert($("#mess").val());
             }
         })
+
+
         function toAddLaws() {
             window.location.href="addLaws";
         }

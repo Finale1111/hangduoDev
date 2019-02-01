@@ -93,7 +93,7 @@ public class LawServiceImpl implements LawService {
         return lawDao.getLawByAlias(lawAlias);
     }
 
-    @Override
+   @Override
     public PageInfo<Law> searchLaws(int pageNum, int pageSize,int lawNum, String title) {
         PageHelper.startPage(pageNum,pageSize);
 
@@ -210,5 +210,14 @@ public class LawServiceImpl implements LawService {
         }else {
             return false;
         }
+    }
+    @Override
+    public List<Law> getLawSearch(String title, int lawNum) {
+        return lawDao.getLawSearch(title,lawNum);
+    }
+
+    @Override
+    public List<Item> getItemsMuti2(String lawAlias, String itemNum, String keywords) {
+        return lawDao.getItemsMuti(lawAlias,itemNum,keywords);
     }
 }

@@ -39,9 +39,27 @@ public class ItemController {
     @RequestMapping("/lawSearch")
     public String lawSearch(@RequestParam(defaultValue = "0",required = false) int lawNum,
                             @RequestParam(defaultValue = "x",required = false) String lawTitle,
-                            Model model,
+                            Model model, HttpServletRequest request,
                             @RequestParam(defaultValue = "1",required = false) int pageNumber,
                             @RequestParam(defaultValue = "10",required = false) int pageSize){
+        request.getSession().setMaxInactiveInterval(1);
+        PageInfo<Law> laws=lawService.searchLaws(pageNumber,pageSize,lawNum,lawTitle);
+       List<Law> list=lawService.getLawSearch(lawTitle,lawNum);
+        if(list.size()==0){
+            request.getSession().setAttribute("ccc","没有查询结果");
+            return "redirect:/lawSearch1";
+        }
+        model.addAttribute("laws",laws);
+        model.addAttribute("lawNum",lawNum);
+        model.addAttribute("lawTitle",lawTitle);
+        return "laws";
+    }
+    @RequestMapping("/lawSearch1")
+    public String lawSearch1(@RequestParam(defaultValue = "0",required = false) int lawNum,
+                             @RequestParam(defaultValue = "x",required = false) String lawTitle,
+                             Model model, HttpServletRequest request,
+                             @RequestParam(defaultValue = "1",required = false) int pageNumber,
+                             @RequestParam(defaultValue = "10",required = false) int pageSize){
         PageInfo<Law> laws=lawService.searchLaws(pageNumber,pageSize,lawNum,lawTitle);
         model.addAttribute("laws",laws);
         return "laws";
@@ -103,6 +121,36 @@ public class ItemController {
     public String getItems(@RequestParam(defaultValue = "请选择",required = false) String lawAlias,
                            @RequestParam(defaultValue = "0",required = false) String itemNum,
                            @RequestParam(defaultValue = "x",required = false) String keywords,
+                           Model model,HttpServletRequest request,
+                           @RequestParam(defaultValue = "1",required = false) int pageNumber,
+                           @RequestParam(defaultValue = "10",required = false) int pageSize){
+        request.getSession().setMaxInactiveInterval(1);
+       // request.getSession().removeAttribute("itemError");
+        PageInfo<Item> itemPageInfo;
+
+        List<Item> list=lawService.getItemsMuti2(lawAlias,itemNum,keywords);
+
+        itemPageInfo=lawService.getItemsFromLaw(lawAlias,pageNumber,pageSize);
+        if(!itemNum.equals("0") || !keywords.equals("x")){
+            itemPageInfo=lawService.getItemsMuti(lawAlias,itemNum,keywords,pageNumber,pageSize);
+        }
+        if(list.size()==0){
+          request.getSession().setAttribute("itemError","没有查询结果");
+          return "redirect:/items1";
+        }
+        model.addAttribute("items",itemPageInfo);
+        List<Law> lawsList=lawService.getLawsList();
+        model.addAttribute("lawsList",lawsList);
+        model.addAttribute("lawAlias",lawAlias);
+        model.addAttribute("itemNum",itemNum);
+        model.addAttribute("keywords",keywords);
+        return "items";
+    }
+
+    @RequestMapping("/items1")
+    public String items1(@RequestParam(defaultValue = "请选择",required = false) String lawAlias,
+                           @RequestParam(defaultValue = "0",required = false) String itemNum,
+                           @RequestParam(defaultValue = "x",required = false) String keywords,
                            Model model,
                            @RequestParam(defaultValue = "1",required = false) int pageNumber,
                            @RequestParam(defaultValue = "10",required = false) int pageSize){
@@ -118,6 +166,8 @@ public class ItemController {
         List<Law> lawsList=lawService.getLawsList();
         model.addAttribute("lawsList",lawsList);
         model.addAttribute("lawAlias",lawAlias);
+        model.addAttribute("itemNum",itemNum);
+        model.addAttribute("keywords",keywords);
         return "items";
     }
 

@@ -45,5 +45,7 @@ public interface LawService {
     boolean updLaw(Law law);
 
     boolean updItem(Item item);
+    List<Law> getLawSearch(String title,int lawNum);
+   List<Item> getItemsMuti2(String lawAlias,String itemNum,String keywords);
 
 }

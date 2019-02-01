@@ -12,17 +12,17 @@
         select * from laws where law_alias=#{alias}
     </select>
 
-    <select id="getLawSearch" resultMap="law">
+    <!--<select id="getLawSearch" resultMap="law">
         select * from laws
         <where>
             <if test='title!="x"'>
                 law_title like concat('%',#{title},'%')
             </if>
-            <if test='lawNum!=0'>
+            <if test='lawNum!="0"'>
                 and law_num=#{lawNum}
             </if>
         </where>
-    </select>
+    </select>-->
 
     <select id="getHeadCatalogs" parameterType="java.lang.String" resultMap="catalog">
         select * from catalogs where c_level=0  <if test="lawAlias!='请选择'">and law_alias=#{lawAlias}</if>  order by c_index
@@ -47,7 +47,7 @@
         order by i_num
     </select>
 
-    <select id="getItemsMuti"  resultMap="item">
+<!--    <select id="getItemsMuti"  resultMap="item">
         select * from items i join laws l on i.law_alias=l.law_alias
         <where>
             <if test='lawAlias!="请选择"'>
@@ -58,8 +58,23 @@
             </if>
         </where>
         order by i_num
-    </select>
+    </select>-->
 
+    <select id="getItemsMuti"  resultMap="item">
+        select * from items i join laws l on i.law_alias=l.law_alias
+        <where>
+            <if test='lawAlias!="请选择"'>
+                i.law_alias=#{lawAlias}
+            </if>
+            <if test='itemNum!="0"'>
+                and i.i_num=#{itemNum}
+            </if>
+            <if test='keywords!="x"'>
+                and i.keywords like concat('%',#{keywords},'%')
+            </if>
+        </where>
+        order by i_num
+    </select>
 
     <insert id="addLaw" parameterType="com.hangduo.dev1.entity.Law">
         insert into laws values (#{lawAlias},#{lawNum},#{lawVersion},#{lawTitle},'loading.gif',#{lawPDFTitle},#{lawDownloadLink},#{lawDescription},#{showStatus})
@@ -112,6 +127,14 @@
     <update id="updItem" parameterType="com.hangduo.dev1.entity.Item">
         update items set i_num=#{itemNum},law_alias=#{lawAlias},i_alias=#{itemAlias},i_title=#{itemTitle},i_content=#{itemContent},i_version=#{version},keywords=#{keywords} where iid=#{iid}
     </update>
+
+    <select id="getLawSearch" resultMap="law">
+        select * from laws
+        <where>
+            <if test='title!="x"'>law_title like concat('%',#{title},'%')</if>
+            <if test='lawNum!="0"'> and law_num=#{lawNum}</if>
+        </where>
+    </select>
 
     <resultMap id="law" type="com.hangduo.dev1.entity.Law">
         <id column="law_alias" property="lawAlias"></id>

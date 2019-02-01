@@ -66,7 +66,7 @@
         </div>
     </footer>
 </div>
-<script src="../static/layui/layui.js"></script>
+<script src="static/layui/layui.js"></script>
 <script>
     //Demo
     layui.use('form', function(){

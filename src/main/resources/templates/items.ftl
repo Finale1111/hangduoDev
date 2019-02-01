@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="../static/layui/css/layui.css">
-    <link rel="stylesheet" href="../static/css/Xq.css">
+    <link rel="stylesheet" href="static/layui/css/layui.css">
+    <link rel="stylesheet" href="static/css/Xq.css">
     <script src="static/js/jquery-1.9.1.min.js"></script>
 </head>
 <body>
@@ -29,11 +29,11 @@
         <div class="content">
             <label class="ziti">
                 条款号:
-                <input name="itemNum" class="layui-input x-input" type="text">
+                <input name="itemNum" value="<#if itemNum?? && itemNum!="0">${itemNum}</#if>" class="layui-input x-input" type="text">
             </label>
             <label class="ziti">
                 关键词:
-                <input name="keywords" class="layui-input x-input" type="text">
+                <input name="keywords" value="<#if keywords?? && keywords!="x">${keywords}</#if>" class="layui-input x-input" type="text">
             </label>
             <input type="submit" value="搜索" class="layui-btn layui-btn-primary x-btn"/>
         </div>
@@ -70,14 +70,16 @@
                         </td>
                     </tr>
                 </#list>
-
+            <#if itemError??>
+                <input type="hidden" id="itemError" value="${itemError}">
+            </#if>
                 </tbody>
             </table>
             <div id="page" class="fenye"></div>
         </div>
     </footer>
 </div>
-<script src="../static/layui/layui.js"></script>
+<script src="static/layui/layui.js"></script>
 <script>
     layui.use('form', function(){
         var form = layui.form;
@@ -116,6 +118,12 @@
             },"json");
         }
     }
+
+    $(function () {
+       if($("#itemError").val()!=undefined){
+           alert($("#itemError").val());
+       }
+    })
 </script>
 </body>
 </html>

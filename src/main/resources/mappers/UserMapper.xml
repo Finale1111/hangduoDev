@@ -17,7 +17,11 @@
     </select>
 
     <select id="getUserByPhone" parameterType="java.lang.String" resultMap="user">
-        select * from users where user_phone = #{phone}
+        select * from users where user_phone like concat('%',#{phone},'%')
+    </select>
+
+    <select id="getUserByPhonea" parameterType="java.lang.String" resultMap="user">
+    select * from users where user_phone like concat('%',#{phone},'%')
     </select>
 
     <update id="updUser">

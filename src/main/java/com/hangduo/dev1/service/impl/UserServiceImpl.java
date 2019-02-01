@@ -51,6 +51,10 @@ public class UserServiceImpl implements UserService {
     public User getUserByPhone(String phone) {
         return userDao.getUserByPhone(phone);
     }
+    @Override
+    public  List<User> getUserByPhonea(String phone) {
+        return userDao.getUserByPhonea(phone);
+    }
 }
 
 

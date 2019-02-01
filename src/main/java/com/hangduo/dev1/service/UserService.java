@@ -15,6 +15,6 @@ public interface UserService {
 
     boolean UpdUser(User user);
     User getUserByPhone(String phone);
-
+    List<User> getUserByPhonea(String phone);
 
 }

@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import javax.print.attribute.standard.Sides;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -38,9 +39,10 @@ public class SinController {
                              Model model,
                              @RequestParam(defaultValue = "1",required = false) int pageNumber,
                              @RequestParam(defaultValue = "10",required = false) int pageSize){
+        request.getSession().removeAttribute("aaa");
         PageInfo<User> users=userService.getUsersByPhone(userPhone,pageNumber,pageSize);
-        User user =userService.getUserByPhone(userPhone);
-        if(user==null){
+        List<User> user =userService.getUserByPhonea(userPhone);
+        if(user.size()==0){
             request.getSession().setAttribute("aaa","没有查询结果");
             return "redirect:/userSearch1";
         }
@@ -48,7 +50,6 @@ public class SinController {
         model.addAttribute("phoneInfo",userPhone);
         return "selectUsers";
     }
-
     @RequestMapping("/userSearch1")
     public String userSearch1(HttpServletRequest request,@RequestParam(defaultValue = "",required = false) String userPhone,
                               Model model,

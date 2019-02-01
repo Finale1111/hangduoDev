@@ -44,4 +44,7 @@ public interface LawDao {
     int delItem(int iid);
 
     int updItem(Item item);
+
+
+
 }
