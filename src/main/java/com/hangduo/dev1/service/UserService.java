@@ -14,4 +14,7 @@ public interface UserService {
     PageInfo<User> getUsersByPhone(String userPhone,int pageNum,int pageSize);
 
     boolean UpdUser(User user);
+    User getUserByPhone(String phone);
+
+
 }

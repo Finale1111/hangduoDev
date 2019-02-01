@@ -46,6 +46,11 @@ public class UserServiceImpl implements UserService {
     public boolean UpdUser(User user) {
         return userDao.updUser(user)>0?true:false;
     }
+
+    @Override
+    public User getUserByPhone(String phone) {
+        return userDao.getUserByPhone(phone);
+    }
 }
 
 

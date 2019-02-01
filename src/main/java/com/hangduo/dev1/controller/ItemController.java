@@ -269,7 +269,8 @@ public class ItemController {
                                   @RequestParam(defaultValue = "1",required = false) int pageNumber,
                                   @RequestParam(defaultValue = "10",required = false) int pageSize){
         //System.out.println(qstContent+" "+qstPhone);
-        request.getSession().removeAttribute("err");
+        //设置session的有效时常为1秒  一秒过后这个session就没了
+        request.getSession().setMaxInactiveInterval(1);
         PageInfo<Question> questions= questionService.searchQuestions(pageNumber,pageSize,qstContent,qstPhone);
         List<Question> list=new ArrayList<>();
         if(!qstPhone.equals("x") || !qstContent.equals("x")){
@@ -301,6 +302,7 @@ public class ItemController {
 
     @RequestMapping("/updLawAction")
     public String updLawAction(Law law,HttpServletRequest request){
+        request.getSession().setMaxInactiveInterval(1);
         String desOld=law.getLawDescription();
         int length=desOld.length();
         String desNew=desOld.substring(3,length-4);

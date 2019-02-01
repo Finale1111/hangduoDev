@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -28,7 +29,7 @@ public class MainController {
 
 
     @RequestMapping(value = "/laws")
-    public String toLaws(Model model,@RequestParam(defaultValue = "1",required = false) int pageNumber,
+    public String toLaws(Model model,HttpServletRequest request,@RequestParam(defaultValue = "1",required = false) int pageNumber,
                          @RequestParam(defaultValue = "10",required = false) int pageSize){
         PageInfo<Law> laws=lawService.getAllLaws(pageNumber,pageSize);
         model.addAttribute("laws",laws);
@@ -59,7 +60,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/questions")
-    public String toQuestions(Model model,@RequestParam(defaultValue = "1",required = false) int pageNumber,
+    public String toQuestions(Model model, HttpServletRequest request, @RequestParam(defaultValue = "1",required = false) int pageNumber,
                               @RequestParam(defaultValue = "10",required = false) int pageSize){
         PageInfo<Question> questions=questionService.getAllQuestion(pageNumber,pageSize);
         model.addAttribute("questions",questions);
@@ -79,7 +80,9 @@ public class MainController {
     @RequestMapping(value = "/users")
     public String toUsers(Model model,
                           @RequestParam(defaultValue = "1",required = false) int pageNumber,
-                          @RequestParam(defaultValue = "10",required = false) int pageSize){
+                          @RequestParam(defaultValue = "10",required = false) int pageSize
+
+    ){
 
         PageInfo<User> users=userService.getUsers(pageNumber,pageSize);
         model.addAttribute("users",users);

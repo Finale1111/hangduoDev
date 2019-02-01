@@ -17,7 +17,7 @@
             <form action="/userSearch" method="post">
                 <label class="ziti">
                     手机号:
-                    <input placeholder="手机号" name="userPhone" class="layui-input x-input" type="text">
+                    <input placeholder="手机号" name="userPhone" value="<#if phoneInfo??&&phoneInfo!="">${phoneInfo}</#if>" class="layui-input x-input" type="text">
                 </label>
                 <input type="submit" class="layui-btn layui-btn-primary x-btn" value="搜索"/>
             </form>

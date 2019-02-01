@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hangduo.dev1.dao.WebSettingDao">
+
+ <select id="getWebsettingById" parameterType="Integer" resultType="com.hangduo.dev1.entity.WebSetting">
+      SELECT 	sid,
+	web_status,
+	web_title,
+	web_dns,
+	web_logo,
+	semil,
+	slanguage,
+	cpy_info,
+	agreement
+	FROM
+	hangduotest.web_setting
+  <where>
+      <if test="sid!=null">sid=${sid}</if>
+  </where>
+ </select>
+
+    <update id="updWebCpy_info">
+
+UPDATE hangduotest.web_setting
+	<set>
+		<if test="cpy_info!=null and cpy_info!=''">cpy_info =#{cpy_info},</if>
+    </set>
+		<where>
+			<if test="sid!=null">sid=${sid}</if>
+		</where>
+    </update>
+
+	<update id="updWebagreement">
+		UPDATE hangduotest.web_setting
+		<set>
+			<if test="agreement!=null and agreement!=''">agreement =#{agreement},</if>
+		</set>
+		<where>
+			<if test="sid!=null">sid=${sid}</if>
+		</where>
+
+	</update>
+
+</mapper>

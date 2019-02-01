@@ -2,14 +2,8 @@ package com.hangduo.dev1.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
-import com.hangduo.dev1.entity.Admin;
-import com.hangduo.dev1.entity.Message;
-import com.hangduo.dev1.entity.Question;
-import com.hangduo.dev1.entity.User;
-import com.hangduo.dev1.service.AdminService;
-import com.hangduo.dev1.service.MessageService;
-import com.hangduo.dev1.service.QuestionService;
-import com.hangduo.dev1.service.UserService;
+import com.hangduo.dev1.entity.*;
+import com.hangduo.dev1.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.print.attribute.standard.Sides;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,11 +30,30 @@ public class SinController {
     @Resource
     MessageService messageService;
 
+    @Resource
+    WebService webService;
+
     @RequestMapping("/userSearch")
     public String userSearch(HttpServletRequest request,@RequestParam(defaultValue = "",required = false) String userPhone,
                              Model model,
                              @RequestParam(defaultValue = "1",required = false) int pageNumber,
                              @RequestParam(defaultValue = "10",required = false) int pageSize){
+        PageInfo<User> users=userService.getUsersByPhone(userPhone,pageNumber,pageSize);
+        User user =userService.getUserByPhone(userPhone);
+        if(user==null){
+            request.getSession().setAttribute("aaa","没有查询结果");
+            return "redirect:/userSearch1";
+        }
+        model.addAttribute("users",users);
+        model.addAttribute("phoneInfo",userPhone);
+        return "selectUsers";
+    }
+
+    @RequestMapping("/userSearch1")
+    public String userSearch1(HttpServletRequest request,@RequestParam(defaultValue = "",required = false) String userPhone,
+                              Model model,
+                              @RequestParam(defaultValue = "1",required = false) int pageNumber,
+                              @RequestParam(defaultValue = "10",required = false) int pageSize){
         PageInfo<User> users=userService.getUsersByPhone(userPhone,pageNumber,pageSize);
         model.addAttribute("users",users);
         model.addAttribute("phoneInfo",userPhone);
@@ -160,6 +174,59 @@ public class SinController {
     public JSON getMessById(@RequestParam(value="mid",required =false)Integer mid){
         Message message=messageService.findMessageById(mid);
        return (JSON) JSON.toJSON(message);
+    }
+
+
+
+    @RequestMapping("getWebSetting")
+    public String getWebSetting(@RequestParam(value="sid",required =false)Integer sid,@RequestParam(value="cpy_info",required =false)String cpy_info,HttpServletRequest request,Model model){
+        WebSetting webSetting=webService.getWebsettingById(1);
+       // request.getSession().setAttribute("sid",sid);
+
+        model.addAttribute("webSetting",webSetting);
+        return "company";
+    }
+
+    @RequestMapping("toUpdWebCpy_info")
+    @ResponseBody
+    public JSON toUpdWebCpy_info(@RequestParam(value="cpy_info",required =false)String cpy_info,HttpServletRequest request){
+        Map<String,String> resultMap=new HashMap<String,String>();
+       // Integer sid=(Integer) request.getSession().getAttribute("sid");
+        boolean result=webService.updWebCpy_info(cpy_info,1);
+        if(result){
+            resultMap.put("message","true");
+        }
+        else{
+            resultMap.put("message","false");
+        }
+        return (JSON)JSON.toJSON(resultMap);
+
+    }
+
+
+
+    @RequestMapping("getWebSettingagreement")
+    public String getWebSettingagreement(@RequestParam(value="sid",required =false)Integer sid,@RequestParam(value="agreement",required =false)String agreement,HttpServletRequest request,Model model){
+        WebSetting webSetting=webService.getWebsettingById(1);
+        // request.getSession().setAttribute("sid",sid);
+
+        model.addAttribute("webSetting",webSetting);
+        return "serviceAgreement";
+    }
+    @RequestMapping("toUpdWebagreement")
+    @ResponseBody
+    public JSON toUpdWebagreement(@RequestParam(value="agreement",required =false)String agreement,HttpServletRequest request){
+        Map<String,String> resultMap=new HashMap<String,String>();
+        // Integer sid=(Integer) request.getSession().getAttribute("sid");
+        boolean result=webService.updWebagreement(agreement,1);
+        if(result){
+            resultMap.put("message","true");
+        }
+        else{
+            resultMap.put("message","false");
+        }
+        return (JSON)JSON.toJSON(resultMap);
+
     }
 
 

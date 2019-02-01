@@ -105,6 +105,12 @@
             <dd data-name="console">
               <a href="/webSetting" target="myFrame">网站设置</a>
             </dd>
+              <dd data-name="console">
+                  <a href="/getWebSetting" target="myFrame">公司介绍</a>
+              </dd>
+              <dd data-name="console">
+                  <a href="/getWebSettingagreement" target="myFrame">服务协议</a>
+              </dd>
             <dd data-name="console">
               <a href="/mailSetting" target="myFrame">邮件SMTP设置</a>
             </dd>
