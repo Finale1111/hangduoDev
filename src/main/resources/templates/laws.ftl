@@ -127,7 +127,9 @@
             if (confirm('确认删除吗?')) {
                 $.post("delLaw","lawAlias="+laws,function (data) {
                     if (data.result=="true") {
+                        $(".lawAlias").parent().parent().remove();
                         alert("删除成功!");
+                        window.location.href="laws";
                     } else {
                         alert("删除失败!");
                     }

@@ -90,10 +90,11 @@
                 <td style="vertical-align: top;">*法规版本说明:</td>
                 <td>
                     <#--<div id="froala-editor" style="width: 500px;">-->
-                        <textarea id="froala-editor" name="lawDescription"  hidden>${lawInfo.lawDescription}</textarea>
+                       <#-- <textarea id="froala-editor" name="lawDescription"  hidden>${lawInfo.lawDescription}</textarea>-->
                 <#--</div>-->
 
-                    <button class="layui-btn layui-btn-primary x-btn" style="margin-top: 20px;" type="submit">完成</button>
+                        <textarea rows="7" cols="32" id="versionContent" name="lawDescription"></textarea>
+                        <button class="layui-btn layui-btn-primary x-btn" style="margin-top: 20px;position:absolute;top:520px;left:450px" type="submit">完成</button>
                 </td>
             </tr>
                 </table>
@@ -107,8 +108,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/js/froala_editor.pkgd.min.js"></script>
-<script type="text/javascript" src="../static/js/zh_cn.js" ></script>
-<script src="../static/layui/layui.js"></script>
+<script type="text/javascript" src="static/js/zh_cn.js" ></script>
+<script src="static/layui/layui.js"></script>
 <script>
     $(function() {
         $('#froala-editor').froalaEditor({
@@ -145,7 +146,7 @@
         var lawTitle=$("#lawTitle").val();
         var lawPDFTitle=$("#lawPDFTitle").val();
         var lawDownloadLink=$("#lawDownloadLink").val();
-        var lawDescription=$("#froala-editor").val();
+        var lawDescription=$("#versionContent").val();
         if(lawNum==null || lawNum==""){
             alert("法规部号不能为空");
             return false;

@@ -77,7 +77,7 @@
     </select>
 
     <insert id="addLaw" parameterType="com.hangduo.dev1.entity.Law">
-        insert into laws values (#{lawAlias},#{lawNum},#{lawVersion},#{lawTitle},'loading.gif',#{lawPDFTitle},#{lawDownloadLink},#{lawDescription},#{showStatus})
+        insert into laws values (#{lawAlias},#{lawNum},#{lawVersion},#{lawTitle},#{lawLogoUrl},#{lawPDFTitle},#{lawDownloadLink},#{lawDescription},#{showStatus})
     </insert>
 
     <insert id="addItem" parameterType="com.hangduo.dev1.entity.Item">

@@ -79,8 +79,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: center;">
-                        <button class="layui-btn layui-btn-primary x-btn" style="margin-top: 20px;" type="submit">保存</button>
-                        <button class="layui-btn layui-btn-primary x-btn" style="margin-top: 20px;">复制条款</button>
+                        <button class="layui-btn layui-btn-primary x-btn" style="margin-top: 20px;position:absolute;top:780px;left:450px" type="submit">保存</button>
                     </td>
                 </tr>
             </table>
@@ -152,14 +151,6 @@
             return false;
         }
 
-            if(itemAlias==null || itemAlias==""){
-            alert("条款编号别名不能为空");
-            return false;
-        }
-        if(version==null || version==""){
-            alert("条款版本号不能为空");
-            return false;
-        }
         if(itemTitle==null || itemTitle==""){
             alert("条款标题不能为空");
             return false;
@@ -168,10 +159,7 @@
             alert("条款内容不能为空");
             return false;
         }
-        if(keywords==null || keywords==""){
-            alert("关键字不能为空");
-            return false;
-        }
+
     })
 </script>
 

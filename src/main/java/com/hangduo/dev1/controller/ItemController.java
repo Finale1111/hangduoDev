@@ -2,6 +2,7 @@ package com.hangduo.dev1.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
+import com.hangduo.dev1.FileUtil.FileUploadController;
 import com.hangduo.dev1.dao.LawDao;
 import com.hangduo.dev1.entity.Catalog;
 import com.hangduo.dev1.entity.Item;
@@ -172,33 +173,19 @@ public class ItemController {
     }
 
 
-
     @RequestMapping(value = "/addLawsAction",method = RequestMethod.POST)
     public String addLaws(Law law,
-                          @RequestParam(value = "picPath",required = false)MultipartFile attach,
+                          @RequestParam(value = "file")MultipartFile file,
                           HttpSession session,
                           HttpServletRequest request){
-//        String result=null;
-//        if (!attach.isEmpty()){
-//            String path=request.getSession().getServletContext().getRealPath("static"+File.separator+"logos");
-//            int fileSize=50000;
-//            if (attach.getSize()>fileSize){
-//                System.out.println("尺寸过大");
-//            }else{
-//                String fileName=attach.getOriginalFilename();
-//                File target=new File(path,fileName);
-//                if (!target.exists()){
-//                    target.mkdirs();
-//                }
-//                try {
-//                    attach.transferTo(target);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                String lawLogoUrl=path+File.separator+fileName;
-//                System.out.println("*****"+lawLogoUrl);
-//            }
-//        }
+        String fileURL= FileUploadController.upload(file);
+        if (fileURL.equals("error")){
+            System.out.println("图片上传出错");
+            fileURL="图片上传出错";
+        }else {
+            System.out.println("图片上传成功");
+        }
+        law.setLawLogoUrl(fileURL);
         String desOld=law.getLawDescription();
         int length=desOld.length();
         String desNew=desOld.substring(3,length-4);

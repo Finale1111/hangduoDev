@@ -158,7 +158,7 @@
         var adminPhone=$("#adminPhone").val();
         var adminPassword=$("#adminPassword").val();
              if(adminName==null || adminName==""){
-            alert("管理员姓名不能为空");
+            alert("请输入管理员姓名");
             return false;
         }
         if(adminPhone==null || adminPhone==""){
@@ -175,7 +175,7 @@
         }
         var reg = /[a-zA-Z0-9\W_]{6,}/;
         if(!reg.test(adminPassword)){
-            alert("密码长度至少6位");
+            alert("密码长度为6-20个字符");
             return false;
         }
         $.post("AddAdmin","adminName="+adminName+"&adminPhone="+adminPhone+"&adminPassword="+adminPassword,function(data){
@@ -205,10 +205,20 @@
     }
 
 
+
     function updAdm(){
         var glyPhone=$("#glyPhone").val();
         var glyName=$("#glyName").val();
         var password=$("#password").val();
+        if(glyName==null || glyName==""){
+            alert("请输入管理员姓名");
+            return false;
+        }
+        var reg = /[a-zA-Z0-9\W_]{6,}/;
+        if(!reg.test(password)){
+            alert("密码长度为6-20个字符");
+            return false;
+        }
         $.post("updAdmin","glyPhone="+glyPhone+"&glyName="+glyName+"&password="+password,function(data){
             if(data.message=="true"){
                 alert("管理员密码修改成功");
@@ -220,6 +230,19 @@
         },"json")
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
     function delAdm(aid,dom) {
         if (confirm('确认删除吗?')) {
             $.post("delAdmins", {aid:aid}, function (data) {

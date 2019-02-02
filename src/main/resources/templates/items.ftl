@@ -107,11 +107,12 @@
         var id=$(dom).prev().val();
         var iid=id.replace(/,/g,'');
         // var cid=arr.join("-");
-       // alert(iid);
         if (confirm('确认删除吗?')) {
             $.post("delItemAction",{iid:iid},function (data) {
                 if (data.result=="true") {
+                    $(".iid").parent().parent().remove();
                     alert("删除成功!");
+                    window.location.href="items1";
                 } else {
                     alert("删除失败!");
                 }

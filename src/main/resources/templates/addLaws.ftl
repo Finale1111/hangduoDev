@@ -73,6 +73,14 @@
                     <#--</td>-->
                 <#--</tr>-->
                 <tr>
+                    <td>*上传图片:</td>
+                    <td class="layui-form">
+                        <div class="layui-input-block" style="margin-left: 0px">
+                            <input type="file" name="file" >
+                        </div>
+                    </td>
+                </tr>
+                <tr>
                     <td>法规PDF文件名称:</td>
                     <td><input class="layui-input x-input" type="text" name="lawPDFTitle" id="lawPDFTitle"></td>
                 </tr>
@@ -84,11 +92,11 @@
                 <td style="vertical-align: top;">*法规版本说明:</td>
                 <td>
                     <#--<div id="froala-editor" style="width: 500px;">-->
-                        <textarea id="froala-editor" name="lawDescription" hidden></textarea>
+                      <#--  <textarea id="froala-editor" name="lawDescription" hidden></textarea>-->
                 <#--</div>-->
 
-
-                    <button class="layui-btn layui-btn-primary x-btn" style="margin-top: 20px;" type="submit">保存</button>
+                        <textarea rows="7" cols="32" id="versionContent" name="lawDescription"></textarea>
+                    <button class="layui-btn layui-btn-primary x-btn" style="margin-top: 20px;position:absolute;top:580px;left:450px" type="submit">保存</button>
                 </td>
             </tr>
                 </table>
@@ -104,7 +112,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/js/froala_editor.pkgd.min.js"></script>
 <script type="text/javascript" src="../static/js/zh_cn.js" ></script>
-<script src="../static/layui/layui.js"></script>
+<script src="static/layui/layui.js"></script>
 <script>
     $(function() {
         $('#froala-editor').froalaEditor({
@@ -143,15 +151,16 @@
         var lawTitle=$("#lawTitle").val();
         var lawPDFTitle=$("#lawPDFTitle").val();
         var lawDownloadLink=$("#lawDownloadLink").val();
-        var lawDescription=$("#froala-editor").val();
-        if(lawAlias==null || lawAlias==""){
-            alert("法规号别名不能为空");
-            return false;
-        }
+        var lawDescription=$("#versionContent").val();
         if(lawNum==null || lawNum==""){
             alert("法规部号不能为空");
             return false;
         }
+        if(lawAlias==null || lawAlias==""){
+            alert("法规号别名不能为空");
+            return false;
+        }
+
 
         var reg=/^[0-9]*$/
         if(!reg.test(lawNum)){
@@ -159,25 +168,13 @@
             return false;
         }
 
-        if(lawVersion==null||lawVersion==""){
-            alert("法规版本号不能为空");
-            return false;
-        }
+
         if(lawTitle==null||lawTitle==""){
             alert("法规名称不能为空");
             return false;
         }
 
 
-        if(lawPDFTitle==null||lawPDFTitle==""){
-            alert("法规PDF文件名称不能为空");
-            return false;
-        }
-
-        if(lawDownloadLink==null||lawDownloadLink==""){
-            alert("法规PDF文件下载链接不能为空");
-            return false;
-        }
         if(lawDescription==null||lawDescription==""){
             alert("法规版本说明不能为空");
             return false;
